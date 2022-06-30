@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Entities
 {
-    internal class Product
+    public class Product
     {
         public int Id { get; set; }
 
