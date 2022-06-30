@@ -5,32 +5,22 @@ namespace Shop.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class ProductController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+        private readonly ILogger<ProductController> _logger;
 
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public ProductController(ILogger<ProductController> logger)
         {
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        [HttpGet]
         public List<Product> Get()
         {
-            List<Product> resultProduct = null;
+            List<Product> resultProduct;
 
             using (ApplicationContext db = new ApplicationContext())
             {
-                Product phone = new Product { Name = "Phone", Price = 123, Quantity = 33 };
-                Product TV = new Product { Name = "TV", Price = 432, Quantity = 12 };
-                db.Products.Add(phone);
-                db.Products.Add(TV);
-                db.SaveChanges();
                 resultProduct = db.Products.ToList();
             }
 
@@ -42,10 +32,10 @@ namespace Shop.Controllers
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                Product phone = new Product { Name = "Phone", Price = 123, Quantity = 33 };
-                db.Products.Add(phone);
-                db.SaveChanges();
-                db.Products.Remove(phone);
+                Product product = db.Products.FirstOrDefault();
+
+                db.Products.Remove(product);
+
                 db.SaveChanges();
             }
 
@@ -57,12 +47,12 @@ namespace Shop.Controllers
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                Product phone = new Product { Name = "Phone", Price = 123, Quantity = 33 };
+                Product product = db.Products.FirstOrDefault();
 
-                db.Products.Add(phone);
-                db.SaveChanges();
-                phone.Price = 1;
-                db.Products.Update(phone);
+                product.Price = 1;
+
+                db.Products.Update(product);
+
                 db.SaveChanges();
             }
 
@@ -77,6 +67,7 @@ namespace Shop.Controllers
                 Product phone = new Product { Name = "Phone", Price = 123, Quantity = 33 };
 
                 db.Products.Add(phone);
+
                 db.SaveChanges();
             }
 
