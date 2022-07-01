@@ -9,35 +9,31 @@ namespace Shop.Controllers
     {
         private readonly ILogger<ProductController> _logger;
 
-        public ProductController(ILogger<ProductController> logger)
+        private readonly ApplicationContext _applicationContext;
+
+        public ProductController(ILogger<ProductController> logger,
+            ApplicationContext applicationContext)
         {
             _logger = logger;
+            _applicationContext = applicationContext;
         }
 
         [HttpGet]
         public List<Product> GetAll()
         {
-            List<Product> resultProduct;
+            var resultProduct = _applicationContext.Products.ToList();
 
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                resultProduct = db.Products.ToList();
-            }
-
-            return resultProduct; 
+            return resultProduct;
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                Product product = db.Products.FirstOrDefault(p => p.Id == id);
+            var product = _applicationContext.Products.FirstOrDefault(p => p.Id == id);
 
-                db.Products.Remove(product);
+            _applicationContext.Products.Remove(product);
 
-                db.SaveChanges();
-            }
+            _applicationContext.SaveChanges();
 
             return Ok();
         }
@@ -45,16 +41,11 @@ namespace Shop.Controllers
         [HttpPut]
         public Product Update(Product product)
         {
-            Product resultProduct;
+            _applicationContext.Products.Update(product);
 
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                db.Products.Update(product);
+            _applicationContext.SaveChanges();
 
-                db.SaveChanges();
-
-                resultProduct = db.Products.FirstOrDefault(p => p.Id == product.Id);
-            }
+            var resultProduct = _applicationContext.Products.FirstOrDefault(p => p.Id == product.Id);
 
             return resultProduct;
         }
@@ -62,16 +53,11 @@ namespace Shop.Controllers
         [HttpPost]
         public Product Create(Product product)
         {
-            Product resultProduct;
+            _applicationContext.Products.Add(product);
 
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                db.Products.Add(product);
+            _applicationContext.SaveChanges();
 
-                db.SaveChanges();
-
-                resultProduct = db.Products.FirstOrDefault(p => p.Name == product.Name);
-            }
+            var resultProduct = _applicationContext.Products.FirstOrDefault(p => p.Name == product.Name);
 
             return resultProduct;
         }
