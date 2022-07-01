@@ -24,25 +24,20 @@ namespace Shop.Controllers
         {
             List<Product> resultProduct;
 
-            using (_applicationContext)
-            {
-                resultProduct = _applicationContext.Products.ToList();
-            }
+            resultProduct = _applicationContext.Products.ToList();
 
-            return resultProduct; 
+            return resultProduct;
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            using (_applicationContext)
-            {
-                Product product = _applicationContext.Products.FirstOrDefault(p => p.Id == id);
 
-                _applicationContext.Products.Remove(product);
+            Product product = _applicationContext.Products.FirstOrDefault(p => p.Id == id);
 
-                _applicationContext.SaveChanges();
-            }
+            _applicationContext.Products.Remove(product);
+
+            _applicationContext.SaveChanges();
 
             return Ok();
         }
@@ -52,14 +47,11 @@ namespace Shop.Controllers
         {
             Product resultProduct;
 
-            using (_applicationContext)
-            {
-                _applicationContext.Products.Update(product);
+            _applicationContext.Products.Update(product);
 
-                _applicationContext.SaveChanges();
+            _applicationContext.SaveChanges();
 
-                resultProduct = _applicationContext.Products.FirstOrDefault(p => p.Id == product.Id);
-            }
+            resultProduct = _applicationContext.Products.FirstOrDefault(p => p.Id == product.Id);
 
             return resultProduct;
         }
@@ -69,14 +61,11 @@ namespace Shop.Controllers
         {
             Product resultProduct;
 
-            using (_applicationContext)
-            {
-                _applicationContext.Products.Add(product);
+            _applicationContext.Products.Add(product);
 
-                _applicationContext.SaveChanges();
+            _applicationContext.SaveChanges();
 
-                resultProduct = _applicationContext.Products.FirstOrDefault(p => p.Name == product.Name);
-            }
+            resultProduct = _applicationContext.Products.FirstOrDefault(p => p.Name == product.Name);
 
             return resultProduct;
         }

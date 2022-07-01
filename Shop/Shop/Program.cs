@@ -3,6 +3,7 @@ using Shop.BD;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationContext>();
+
 // Add services to the container.
 
 builder.Services.AddControllers();
