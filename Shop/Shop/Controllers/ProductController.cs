@@ -15,7 +15,7 @@ namespace Shop.Controllers
         }
 
         [HttpGet]
-        public List<Product> Get()
+        public List<Product> GetAll()
         {
             List<Product> resultProduct;
 
@@ -43,29 +43,37 @@ namespace Shop.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update(Product product)
+        public Product Update(Product product)
         {
+            Product resultProduct;
+
             using (ApplicationContext db = new ApplicationContext())
             {
                 db.Products.Update(product);
 
                 db.SaveChanges();
+
+                resultProduct = db.Products.FirstOrDefault(p => p.Id == product.Id);
             }
 
-            return Ok();
+            return resultProduct;
         }
 
         [HttpPost]
-        public IActionResult Create(Product product)
+        public Product Create(Product product)
         {
+            Product resultProduct;
+
             using (ApplicationContext db = new ApplicationContext())
             {
                 db.Products.Add(product);
 
                 db.SaveChanges();
+
+                resultProduct = db.Products.FirstOrDefault(p => p.Name == product.Name);
             }
 
-            return Ok();
+            return resultProduct;
         }
     }
 }
