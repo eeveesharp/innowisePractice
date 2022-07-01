@@ -27,12 +27,12 @@ namespace Shop.Controllers
             return resultProduct; 
         }
 
-        [HttpDelete]
-        public IActionResult Delete()
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                Product product = db.Products.FirstOrDefault();
+                Product product = db.Products.FirstOrDefault(p => p.Id == id);
 
                 db.Products.Remove(product);
 
@@ -56,13 +56,11 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create()
+        public IActionResult Create(Product product)
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                Product phone = new Product { Name = "Phone", Price = 123, Quantity = 33 };
-
-                db.Products.Add(phone);
+                db.Products.Add(product);
 
                 db.SaveChanges();
             }
