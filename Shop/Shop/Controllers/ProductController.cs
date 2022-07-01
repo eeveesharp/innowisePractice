@@ -30,7 +30,7 @@ namespace Shop.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            Product product = _applicationContext.Products.FirstOrDefault(p => p.Id == id);
+            var product = _applicationContext.Products.FirstOrDefault(p => p.Id == id);
 
             _applicationContext.Products.Remove(product);
 
