@@ -22,9 +22,7 @@ namespace Shop.Controllers
         [HttpGet]
         public List<Product> GetAll()
         {
-            List<Product> resultProduct;
-
-            resultProduct = _applicationContext.Products.ToList();
+            var resultProduct = _applicationContext.Products.ToList();
 
             return resultProduct;
         }
@@ -32,7 +30,6 @@ namespace Shop.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-
             Product product = _applicationContext.Products.FirstOrDefault(p => p.Id == id);
 
             _applicationContext.Products.Remove(product);
@@ -45,13 +42,11 @@ namespace Shop.Controllers
         [HttpPut]
         public Product Update(Product product)
         {
-            Product resultProduct;
-
             _applicationContext.Products.Update(product);
 
             _applicationContext.SaveChanges();
 
-            resultProduct = _applicationContext.Products.FirstOrDefault(p => p.Id == product.Id);
+            var resultProduct = _applicationContext.Products.FirstOrDefault(p => p.Id == product.Id);
 
             return resultProduct;
         }
@@ -59,13 +54,11 @@ namespace Shop.Controllers
         [HttpPost]
         public Product Create(Product product)
         {
-            Product resultProduct;
-
             _applicationContext.Products.Add(product);
 
             _applicationContext.SaveChanges();
 
-            resultProduct = _applicationContext.Products.FirstOrDefault(p => p.Name == product.Name);
+            var resultProduct = _applicationContext.Products.FirstOrDefault(p => p.Name == product.Name);
 
             return resultProduct;
         }
