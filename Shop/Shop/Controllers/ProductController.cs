@@ -15,7 +15,6 @@ namespace Shop.Controllers
             ApplicationContext applicationContext)
         {
             _logger = logger;
-
             _applicationContext = applicationContext;
         }
 

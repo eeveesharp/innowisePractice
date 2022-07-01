@@ -6,11 +6,10 @@ namespace Shop.BD
     {
         public DbSet<Product> Products => Set<Product>();
 
-        public ApplicationContext() => Database.EnsureCreated();
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public ApplicationContext(DbContextOptions<ApplicationContext> contextOptions)
+        : base(contextOptions)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Shop;Trusted_Connection=True;");
+           
         }
     }
 }
