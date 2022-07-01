@@ -43,14 +43,10 @@ namespace Shop.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update()
+        public IActionResult Update(Product product)
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                Product product = db.Products.FirstOrDefault();
-
-                product.Price = 1;
-
                 db.Products.Update(product);
 
                 db.SaveChanges();
