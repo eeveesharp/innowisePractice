@@ -1,4 +1,6 @@
+using System.Diagnostics.Eventing.Reader;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Shop.BD;
 
 namespace Shop.Controllers
@@ -19,16 +21,21 @@ namespace Shop.Controllers
         }
 
         [HttpGet]
-        public List<Product> GetAll()
+        public IActionResult GetAll()
         {
             var resultProduct = _applicationContext.Products.ToList();
 
-            return resultProduct;
+            return Ok(resultProduct);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+            if (!IsCorrectId(id))
+            {
+                return BadRequest("Error");
+            }
+
             var product = _applicationContext.Products.FirstOrDefault(p => p.Id == id);
 
             _applicationContext.Products.Remove(product);
@@ -39,27 +46,58 @@ namespace Shop.Controllers
         }
 
         [HttpPut]
-        public Product Update(Product product)
+        public IActionResult Update(Product product)
         {
+            if (!IsCorrectData(product))
+            {
+                return BadRequest("Error");
+            }
+
             _applicationContext.Products.Update(product);
 
             _applicationContext.SaveChanges();
 
             var resultProduct = _applicationContext.Products.FirstOrDefault(p => p.Id == product.Id);
 
-            return resultProduct;
+            return Ok(resultProduct);
         }
 
         [HttpPost]
-        public Product Create(Product product)
+        public IActionResult Create(Product product)
         {
+            if (!IsCorrectData(product))
+            {
+                return BadRequest("Error");
+            }
+            
             _applicationContext.Products.Add(product);
 
             _applicationContext.SaveChanges();
 
             var resultProduct = _applicationContext.Products.FirstOrDefault(p => p.Name == product.Name);
 
-            return resultProduct;
+            return Ok(resultProduct);
+        }
+
+        private bool IsCorrectData(Product product)
+        {
+            return product.Quantity <= 1000 
+                   && product.Quantity > 0 
+                   && product.Price <= 1500 
+                   && product.Price > 0;
+        }
+
+        private bool IsCorrectId(int id)
+        {
+            foreach (var product in _applicationContext.Products)
+            {
+                if (id == product.Id)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
