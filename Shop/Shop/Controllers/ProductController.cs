@@ -86,26 +86,5 @@ namespace Shop.Controllers
 
             return resultProduct;
         }
-
-        //private bool IsCorrectQuantity(Product product)
-        //{
-        //    return product.Quantity <= 1000 && product.Quantity > 0;
-        //}
-
-        //private bool IsCorrectPrice(Product product)
-        //{
-        //    return  product.Price <= 1500
-        //           && product.Price > 0;
-        //}
-
-        //private bool IsCorrectName(Product product)
-        //{
-        //    return product.Name is not null;
-        //}
-
-        //private bool IsCorrectId(int id)
-        //{
-        //    return _applicationContext.Products.AsNoTracking().FirstOrDefault(p => p.Id == id) is not null;
-        //}
     }
 }
