@@ -71,23 +71,44 @@ namespace Shop.BLL.Services
             var product = _applicationContext.Products.FirstOrDefault(p => p.Id == id);
 
             _applicationContext.Products.Remove(product);
-
-            _applicationContext.SaveChanges();
         }
 
         public Product Get(int id)
         {
-            throw new NotImplementedException();
+            var result = _applicationContext.Products.FirstOrDefault(c => c.Id == id);
+
+            return ConvertProductEntityToProduct(result);
         }
 
         public IEnumerable<Product> GetAll()
         {
-            throw new NotImplementedException();
+            var products = _productRepository.GetAll();
+
+            var result = new List<Product>();
+
+            foreach (var item in products)
+            {
+                result.Add(ConvertProductEntityToProduct(item));
+            }
+
+            return result;
         }
 
         public Product Update(Product item)
         {
-            throw new NotImplementedException();
+            if (!_validation.IsCorrectName(item)
+                || !_validation.IsCorrectPrice(item)
+                || !_validation.IsCorrectQuantity(item)
+                || !_validation.IsCorrectId(item.Id))
+            {
+                throw new ArgumentException();
+            }
+
+            var productEntity = ConvertProductToProductEntity(item);
+
+            var resultProduct = _productRepository.Update(productEntity);
+
+            return ConvertProductEntityToProduct(resultProduct);
         }
     }
 }
