@@ -21,19 +21,19 @@ namespace Shop.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public List<Product> GetAll()
         {
             var resultProduct = _applicationContext.Products.ToList();
 
-            return Ok(resultProduct);
+            return resultProduct;
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public Product Delete(int id)
         {
-            if (!IsCorrectId(id))
+            if (IsCorrectId(id) is null)
             {
-                return BadRequest("Error");
+                throw new ArgumentException();
             }
 
             var product = _applicationContext.Products.FirstOrDefault(p => p.Id == id);
@@ -42,15 +42,18 @@ namespace Shop.Controllers
 
             _applicationContext.SaveChanges();
 
-            return Ok();
+            return product;
         }
 
         [HttpPut]
-        public IActionResult Update(Product product)
+        public Product Update(Product product)
         {
-            if (!IsCorrectData(product))
+            if (!IsCorrectName(product)
+                || !IsCorrectPrice(product)
+                || !IsCorrectQuantity(product)
+                || IsCorrectId(product.Id) is null)
             {
-                return BadRequest("Error");
+                throw new ArgumentException();
             }
 
             _applicationContext.Products.Update(product);
@@ -59,45 +62,47 @@ namespace Shop.Controllers
 
             var resultProduct = _applicationContext.Products.FirstOrDefault(p => p.Id == product.Id);
 
-            return Ok(resultProduct);
+            return resultProduct;
         }
 
         [HttpPost]
-        public IActionResult Create(Product product)
+        public Product Create(Product product)
         {
-            if (!IsCorrectData(product))
+            if (!IsCorrectName(product)
+                || !IsCorrectPrice(product)
+                || !IsCorrectQuantity(product))
             {
-                return BadRequest("Error");
+                throw new ArgumentException();
             }
-            
+
             _applicationContext.Products.Add(product);
 
             _applicationContext.SaveChanges();
 
             var resultProduct = _applicationContext.Products.FirstOrDefault(p => p.Name == product.Name);
 
-            return Ok(resultProduct);
+            return resultProduct;
         }
 
-        private bool IsCorrectData(Product product)
+        private bool IsCorrectQuantity(Product product)
         {
-            return product.Quantity <= 1000 
-                   && product.Quantity > 0 
-                   && product.Price <= 1500 
+            return product.Quantity <= 1000 && product.Quantity > 0;
+        }
+
+        private bool IsCorrectPrice(Product product)
+        {
+            return  product.Price <= 1500
                    && product.Price > 0;
         }
 
-        private bool IsCorrectId(int id)
+        private bool IsCorrectName(Product product)
         {
-            foreach (var product in _applicationContext.Products)
-            {
-                if (id == product.Id)
-                {
-                    return true;
-                }
-            }
+            return product.Name is not null;
+        }
 
-            return false;
+        private Product IsCorrectId(int id)
+        {
+            return  _applicationContext.Products.AsNoTracking().FirstOrDefault(p => p.Id == id);
         }
     }
 }
