@@ -1,6 +1,6 @@
-namespace Shop
+namespace Shop.ViewModels.Product
 {
-    public class Product
+    public class ProductViewModel
     {
         public int Id { get; set; }
 

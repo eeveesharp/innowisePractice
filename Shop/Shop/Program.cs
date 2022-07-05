@@ -1,11 +1,8 @@
-using Microsoft.EntityFrameworkCore;
-using Shop.BD;
+using Shop.BLL.DI;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var configuration = builder.Configuration;
-
-builder.Services.AddDbContext<ApplicationContext>(c => c.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddBusinessLogic(builder.Configuration);
 
 // Add services to the container.
 

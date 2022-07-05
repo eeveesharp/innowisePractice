@@ -1,7 +1,6 @@
-using System.Diagnostics.Eventing.Reader;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Shop.BD;
+using Shop.BLL.Interfaces;
+using Shop.ViewModels.Product;
 
 namespace Shop.Controllers
 {
@@ -9,82 +8,56 @@ namespace Shop.Controllers
     [Route("[controller]")]
     public class ProductController : ControllerBase
     {
-        private readonly ILogger<ProductController> _logger;
+        private readonly IProductServices<BLL.Models.Product> _productServices;
 
-        private readonly ApplicationContext _applicationContext;
-
-        private readonly Validation _validation;
-
-        public ProductController(ILogger<ProductController> logger,
-            ApplicationContext applicationContext)
+        public ProductController(IProductServices<BLL.Models.Product> productServices)
         {
-            _logger = logger;
-            _applicationContext = applicationContext;
-            _validation = new Validation(applicationContext);
+            _productServices = productServices;
         }
 
         [HttpGet]
-        public List<Product> GetAll()
+        public List<ProductViewModel> GetAll()
         {
-            var resultProduct = _applicationContext.Products.ToList();
+            var resultProduct = _productServices.GetAll();
 
-            return resultProduct;
+            var products = new List<ProductViewModel>();
+
+            foreach (var product in resultProduct)
+            {
+                products.Add(
+                    new ProductViewModel
+                    {
+                        Name = product.Name,
+                        Quantity = product.Quantity,
+                        Price = product.Price
+                    });
+            }
+
+            return products;
         }
 
         [HttpDelete("{id}")]
-        public Product Delete(int id)
+        public ProductViewModel Delete(int id)
         {
-            if (!_validation.IsCorrectId(id))
-            {
-                throw new ArgumentException();
-            }
+            _productServices.Delete(id);
 
-            var product = _applicationContext.Products.FirstOrDefault(p => p.Id == id);
-
-            _applicationContext.Products.Remove(product);
-
-            _applicationContext.SaveChanges();
-
-            return product;
+            return null;
         }
 
         [HttpPut]
-        public Product Update(Product product)
+        public ProductViewModel Update(ProductViewModel product)
         {
-            if (!_validation.IsCorrectName(product)
-                || !_validation.IsCorrectPrice(product)
-                || !_validation.IsCorrectQuantity(product)
-                || !_validation.IsCorrectId(product.Id))
-            {
-                throw new ArgumentException();
-            }
+           // _productServices.Update(product);
 
-            _applicationContext.Products.Update(product);
-
-            _applicationContext.SaveChanges();
-
-            var resultProduct = _applicationContext.Products.FirstOrDefault(p => p.Id == product.Id);
-
-            return resultProduct;
+            return null;
         }
 
         [HttpPost]
-        public Product Create(Product product)
+        public ProductViewModel Create(ProductViewModel product)
         {
-            if (!_validation.IsCorrectName(product)
-                || !_validation.IsCorrectPrice(product)
-                || !_validation.IsCorrectQuantity(product))
-            {
-                throw new ArgumentException();
-            }
+           // _productServices.Create(product);
 
-            _applicationContext.Products.Add(product);
-
-            _applicationContext.SaveChanges();
-
-            var resultProduct = _applicationContext.Products.FirstOrDefault(p => p.Name == product.Name);
-
-            return resultProduct;
+            return null;
         }
     }
 }

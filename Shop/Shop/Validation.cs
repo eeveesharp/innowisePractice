@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shop.BD;
+using Shop.ViewModels.Product;
 
 namespace Shop
 {
@@ -12,18 +13,18 @@ namespace Shop
             this._applicationContext = applicationContext;
         }
 
-        public bool IsCorrectQuantity(Product product)
+        public bool IsCorrectQuantity(ProductViewModel product)
         {
             return product.Quantity <= 1000 && product.Quantity > 0;
         }
 
-        public  bool IsCorrectPrice(Product product)
+        public  bool IsCorrectPrice(ProductViewModel product)
         {
             return product.Price <= 1500
                    && product.Price > 0;
         }
 
-        public  bool IsCorrectName(Product product)
+        public  bool IsCorrectName(ProductViewModel product)
         {
             return product.Name is not null;
         }
