@@ -1,4 +1,5 @@
-﻿using Shop.DAL.EF;
+﻿using Microsoft.EntityFrameworkCore;
+using Shop.DAL.EF;
 using Shop.DAL.Entities;
 using Shop.DAL.Interfaces;
 
@@ -32,7 +33,7 @@ namespace Shop.DAL.Repositories
 
         public IEnumerable<ProductEntity> GetAll()
         {
-            return _applicationContext.Products;
+            return _applicationContext.Products.AsNoTracking();
         }
 
         public ProductEntity Update(ProductEntity item)

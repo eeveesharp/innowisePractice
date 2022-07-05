@@ -1,21 +1,24 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shop.BLL.Models;
 using Shop.DAL.EF;
+using Shop.DAL.Entities;
+using Shop.DAL.Interfaces;
 
 namespace Shop.BLL.Infrastructure
 {
     public class Validation
     {
-        private readonly ApplicationContext _applicationContext;
+        private readonly IProductRepository<ProductEntity> _productRepository;
 
-        public Validation(ApplicationContext applicationContext)
+        public Validation(IProductRepository<ProductEntity> productRepository)
         {
-            this._applicationContext = applicationContext;
+            _productRepository = productRepository;
         }
 
         public bool IsCorrectQuantity(Product product)
         {
-            return product.Quantity <= 1000 && product.Quantity > 0;
+            return product.Quantity <= 1000 
+                   && product.Quantity > 0;
         }
 
         public bool IsCorrectPrice(Product product)
@@ -31,7 +34,7 @@ namespace Shop.BLL.Infrastructure
 
         public bool IsCorrectId(int id)
         {
-            return _applicationContext.Products.AsNoTracking().FirstOrDefault(p => p.Id == id) is not null;
+            return _productRepository.GetAll().FirstOrDefault(p => p.Id == id) is not null;
         }
     }
 }

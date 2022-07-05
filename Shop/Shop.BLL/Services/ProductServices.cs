@@ -18,18 +18,13 @@ namespace Shop.BLL.Services
     {
         private readonly IProductRepository<ProductEntity> _productRepository;
 
-        private readonly ApplicationContext _applicationContext;
-
         private readonly Validation _validation;
 
-        public ProductServices(IProductRepository<ProductEntity> productRepository,
-            ApplicationContext applicationContext)
+        public ProductServices(IProductRepository<ProductEntity> productRepository)
         {
             _productRepository = productRepository;
 
-            _applicationContext = applicationContext;
-
-            _validation = new Validation(_applicationContext);
+            _validation = new Validation(productRepository);
         }
 
         public Product Create(Product item)
@@ -68,14 +63,12 @@ namespace Shop.BLL.Services
                 throw new ArgumentException();
             }
 
-            var product = _applicationContext.Products.FirstOrDefault(p => p.Id == id);
-
-            _applicationContext.Products.Remove(product);
+            _productRepository.Delete(id);
         }
 
         public Product Get(int id)
         {
-            var result = _applicationContext.Products.FirstOrDefault(c => c.Id == id);
+            var result = _productRepository.Get(id);
 
             return ConvertProductEntityToProduct(result);
         }
