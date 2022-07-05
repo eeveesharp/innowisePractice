@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Shop.BLL.Models;
-using Shop.DAL.Entities;
+﻿using Shop.BLL.Models;
+using Shop.ViewModels.Product;
 
-namespace Shop.BLL.Automapper
+namespace Shop.Automapper
 {
     public static class Mapper
     {
-        public static  ProductEntity ConvertProductToProductEntity(Product item)
+        public static Product ConvertProductViewModelToProduct(ProductViewModel item)
         {
-            return new ProductEntity
+            return new Product
             {
                 Id = item.Id,
                 Name = item.Name,
@@ -21,9 +16,9 @@ namespace Shop.BLL.Automapper
             };
         }
 
-        public static Product ConvertProductEntityToProduct(ProductEntity item)
+        public static ProductViewModel ConvertProductToProductViewModel(Product item)
         {
-            return new Product
+            return new ProductViewModel
             {
                 Id = item.Id,
                 Name = item.Name,

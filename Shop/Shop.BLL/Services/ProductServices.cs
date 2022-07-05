@@ -1,4 +1,5 @@
-﻿using Shop.BLL.Infrastructure;
+﻿using Shop.BLL.Automapper;
+using Shop.BLL.Infrastructure;
 using Shop.BLL.Interfaces;
 using Shop.BLL.Models;
 using Shop.DAL.Entities;
@@ -29,33 +30,11 @@ namespace Shop.BLL.Services
                 throw new ArgumentException();
             }
 
-            var productEntity = ConvertProductToProductEntity(item);
+            var productEntity = Mapper.ConvertProductToProductEntity(item);
 
             var resultProduct = _productRepository.Create(productEntity);
 
-            return ConvertProductEntityToProduct(resultProduct);
-        }
-
-        private ProductEntity ConvertProductToProductEntity(Product item)
-        {
-            return new ProductEntity
-            {
-                Id = item.Id,
-                Name = item.Name,
-                Price = item.Price,
-                Quantity = item.Quantity
-            };
-        }
-
-        private Product ConvertProductEntityToProduct(ProductEntity item)
-        {
-            return new Product
-            {
-                Id = item.Id,
-                Name = item.Name,
-                Price = item.Price,
-                Quantity = item.Quantity
-            };
+            return Mapper.ConvertProductEntityToProduct(resultProduct);
         }
 
         public void Delete(int id)
@@ -77,7 +56,7 @@ namespace Shop.BLL.Services
 
             var result = _productRepository.Get(id);
 
-            return ConvertProductEntityToProduct(result);
+            return Mapper.ConvertProductEntityToProduct(result);
         }
 
         public IEnumerable<Product> GetAll()
@@ -88,7 +67,7 @@ namespace Shop.BLL.Services
 
             foreach (var item in products)
             {
-                result.Add(ConvertProductEntityToProduct(item));
+                result.Add(Mapper.ConvertProductEntityToProduct(item));
             }
 
             return result;
@@ -104,11 +83,11 @@ namespace Shop.BLL.Services
                 throw new ArgumentException();
             }
 
-            var productEntity = ConvertProductToProductEntity(item);
+            var productEntity = Mapper.ConvertProductToProductEntity(item);
 
             var resultProduct = _productRepository.Update(productEntity);
 
-            return ConvertProductEntityToProduct(resultProduct);
+            return Mapper.ConvertProductEntityToProduct(resultProduct);
         }
     }
 }

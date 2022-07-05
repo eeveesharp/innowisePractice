@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Shop.Automapper;
 using Shop.BLL.Interfaces;
-using Shop.BLL.Models;
 using Shop.ViewModels.Product;
 
 namespace Shop.Controllers
@@ -25,14 +25,7 @@ namespace Shop.Controllers
 
             foreach (var product in resultProduct)
             {
-                products.Add(
-                    new ProductViewModel
-                    {
-                        Id = product.Id,
-                        Name = product.Name,
-                        Quantity = product.Quantity,
-                        Price = product.Price
-                    });
+                products.Add(Mapper.ConvertProductToProductViewModel(product));
             }
 
             return products;
@@ -41,49 +34,27 @@ namespace Shop.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-             _productServices.Delete(id);
+            _productServices.Delete(id);
         }
 
         [HttpPut]
         public ProductViewModel Update(ProductViewModel product)
         {
-            var productResult = ConvertProductViewModelToProduct(product);
+            var productResult = Mapper.ConvertProductViewModelToProduct(product);
 
             _productServices.Update(productResult);
 
-            return ConvertProductToProductViewModel(productResult);
+            return Mapper.ConvertProductToProductViewModel(productResult);
         }
 
         [HttpPost]
         public ProductViewModel Create(ProductViewModel product)
         {
-            var productResult = ConvertProductViewModelToProduct(product);
+            var productResult = Mapper.ConvertProductViewModelToProduct(product);
 
             _productServices.Create(productResult);
 
-            return ConvertProductToProductViewModel(productResult);
-        }
-
-        private Product ConvertProductViewModelToProduct(ProductViewModel item)
-        {
-            return new Product
-            {
-                Id =item.Id,
-                Name = item.Name,
-                Price = item.Price,
-                Quantity = item.Quantity
-            };
-        }
-
-        private ProductViewModel ConvertProductToProductViewModel(Product item)
-        {
-            return new ProductViewModel
-            {
-                Id = item.Id,
-                Name = item.Name,
-                Price = item.Price,
-                Quantity = item.Quantity
-            };
+            return Mapper.ConvertProductToProductViewModel(productResult);
         }
     }
 }
