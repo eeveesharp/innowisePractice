@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Shop.BLL.Infrastructure;
+﻿using Shop.BLL.Infrastructure;
 using Shop.BLL.Interfaces;
 using Shop.BLL.Models;
-using Shop.DAL.EF;
 using Shop.DAL.Entities;
 using Shop.DAL.Interfaces;
 
