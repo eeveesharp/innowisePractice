@@ -22,6 +22,13 @@ namespace Shop.BLL.Services
 
         public Product Create(Product item)
         {
+            if (!_validation.IsCorrectName(item)
+                || !_validation.IsCorrectPrice(item)
+                || !_validation.IsCorrectQuantity(item))
+            {
+                throw new ArgumentException();
+            }
+
             var productEntity = ConvertProductToProductEntity(item);
 
             var resultProduct = _productRepository.Create(productEntity);

@@ -31,26 +31,26 @@ namespace Shop.BLL.Automapper
             };
         }
 
-        private static Product ConvertProductViewModelToProduct(ProductViewModel item)
-        {
-            return new Product
-            {
-                Id = item.Id,
-                Name = item.Name,
-                Price = item.Price,
-                Quantity = item.Quantity
-            };
-        }
+        //private static Product ConvertProductViewModelToProduct(ProductViewModel item)
+        //{
+        //    return new Product
+        //    {
+        //        Id = item.Id,
+        //        Name = item.Name,
+        //        Price = item.Price,
+        //        Quantity = item.Quantity
+        //    };
+        //}
 
-        private static ProductViewModel ConvertProductToProductViewModel(Product item)
-        {
-            return new ProductViewModel
-            {
-                Id = item.Id,
-                Name = item.Name,
-                Price = item.Price,
-                Quantity = item.Quantity
-            };
-        }
+        //private static ProductViewModel ConvertProductToProductViewModel(Product item)
+        //{
+        //    return new ProductViewModel
+        //    {
+        //        Id = item.Id,
+        //        Name = item.Name,
+        //        Price = item.Price,
+        //        Quantity = item.Quantity
+        //    };
+        //}
     }
 }
