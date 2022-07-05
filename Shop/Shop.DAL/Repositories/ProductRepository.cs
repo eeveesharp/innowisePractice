@@ -18,12 +18,16 @@ namespace Shop.DAL.Repositories
         {
             _applicationContext.Products.Add(item);
 
+            _applicationContext.SaveChanges();
+
             return item;
         }
 
         public void Delete(int id)
         {
             _applicationContext.Products.Remove(_applicationContext.Products.Find(id));
+
+            _applicationContext.SaveChanges();
         }
 
         public ProductEntity Get(int id)
@@ -39,6 +43,8 @@ namespace Shop.DAL.Repositories
         public ProductEntity Update(ProductEntity item)
         {
             _applicationContext.Products.Update(item);
+
+            _applicationContext.SaveChanges();
 
             return item;
         }

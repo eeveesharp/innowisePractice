@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Shop.BLL.Interfaces;
+using Shop.BLL.Models;
 using Shop.ViewModels.Product;
 
 namespace Shop.Controllers
@@ -27,6 +28,7 @@ namespace Shop.Controllers
                 products.Add(
                     new ProductViewModel
                     {
+                        Id = product.Id,
                         Name = product.Name,
                         Quantity = product.Quantity,
                         Price = product.Price
@@ -37,27 +39,51 @@ namespace Shop.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ProductViewModel Delete(int id)
+        public void Delete(int id)
         {
-            _productServices.Delete(id);
-
-            return null;
+             _productServices.Delete(id);
         }
 
         [HttpPut]
         public ProductViewModel Update(ProductViewModel product)
         {
-           // _productServices.Update(product);
+            var productResult = ConvertProductViewModelToProduct(product);
 
-            return null;
+            _productServices.Update(productResult);
+
+            return ConvertProductToProductViewModel(productResult);
         }
 
         [HttpPost]
         public ProductViewModel Create(ProductViewModel product)
         {
-           // _productServices.Create(product);
+            var productResult = ConvertProductViewModelToProduct(product);
 
-            return null;
+            _productServices.Create(productResult);
+
+            return ConvertProductToProductViewModel(productResult);
+        }
+
+        private Product ConvertProductViewModelToProduct(ProductViewModel item)
+        {
+            return new Product
+            {
+                Id =item.Id,
+                Name = item.Name,
+                Price = item.Price,
+                Quantity = item.Quantity
+            };
+        }
+
+        private ProductViewModel ConvertProductToProductViewModel(Product item)
+        {
+            return new ProductViewModel
+            {
+                Id = item.Id,
+                Name = item.Name,
+                Price = item.Price,
+                Quantity = item.Quantity
+            };
         }
     }
 }

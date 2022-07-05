@@ -4,6 +4,7 @@ using Shop.BLL.Models;
 using Shop.DAL.Entities;
 using Shop.DAL.Interfaces;
 
+
 namespace Shop.BLL.Services
 {
     public class ProductServices : IProductServices<Product>
@@ -16,7 +17,7 @@ namespace Shop.BLL.Services
         {
             _productRepository = productRepository;
 
-            _validation = new Validation(productRepository);
+            _validation = new Validation(_productRepository);
         }
 
         public Product Create(Product item)
@@ -32,6 +33,7 @@ namespace Shop.BLL.Services
         {
             return new ProductEntity
             {
+                Id = item.Id,
                 Name = item.Name,
                 Price = item.Price,
                 Quantity = item.Quantity
@@ -42,6 +44,7 @@ namespace Shop.BLL.Services
         {
             return new Product
             {
+                Id = item.Id,
                 Name = item.Name,
                 Price = item.Price,
                 Quantity = item.Quantity

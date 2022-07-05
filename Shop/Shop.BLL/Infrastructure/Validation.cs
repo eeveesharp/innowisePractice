@@ -1,6 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Shop.BLL.Interfaces;
 using Shop.BLL.Models;
-using Shop.DAL.EF;
 using Shop.DAL.Entities;
 using Shop.DAL.Interfaces;
 
@@ -17,7 +16,7 @@ namespace Shop.BLL.Infrastructure
 
         public bool IsCorrectQuantity(Product product)
         {
-            return product.Quantity <= 1000 
+            return product.Quantity <= 1000
                    && product.Quantity > 0;
         }
 
