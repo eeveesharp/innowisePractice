@@ -1,8 +1,10 @@
-﻿using Shop.BLL.Infrastructure;
+﻿using Shop.BLL.Automapper;
+using Shop.BLL.Infrastructure;
 using Shop.BLL.Interfaces;
 using Shop.BLL.Models;
 using Shop.DAL.Entities;
 using Shop.DAL.Interfaces;
+
 
 namespace Shop.BLL.Services
 {
@@ -16,36 +18,23 @@ namespace Shop.BLL.Services
         {
             _productRepository = productRepository;
 
-            _validation = new Validation(productRepository);
+            _validation = new Validation(_productRepository);
         }
 
         public Product Create(Product item)
         {
-            var productEntity = ConvertProductToProductEntity(item);
+            if (!_validation.IsCorrectName(item)
+                || !_validation.IsCorrectPrice(item)
+                || !_validation.IsCorrectQuantity(item))
+            {
+                throw new ArgumentException();
+            }
+
+            var productEntity = Mapper.ConvertProductToProductEntity(item);
 
             var resultProduct = _productRepository.Create(productEntity);
 
-            return ConvertProductEntityToProduct(resultProduct);
-        }
-
-        private ProductEntity ConvertProductToProductEntity(Product item)
-        {
-            return new ProductEntity
-            {
-                Name = item.Name,
-                Price = item.Price,
-                Quantity = item.Quantity
-            };
-        }
-
-        private Product ConvertProductEntityToProduct(ProductEntity item)
-        {
-            return new Product
-            {
-                Name = item.Name,
-                Price = item.Price,
-                Quantity = item.Quantity
-            };
+            return Mapper.ConvertProductEntityToProduct(resultProduct);
         }
 
         public void Delete(int id)
@@ -67,7 +56,7 @@ namespace Shop.BLL.Services
 
             var result = _productRepository.Get(id);
 
-            return ConvertProductEntityToProduct(result);
+            return Mapper.ConvertProductEntityToProduct(result);
         }
 
         public IEnumerable<Product> GetAll()
@@ -78,7 +67,7 @@ namespace Shop.BLL.Services
 
             foreach (var item in products)
             {
-                result.Add(ConvertProductEntityToProduct(item));
+                result.Add(Mapper.ConvertProductEntityToProduct(item));
             }
 
             return result;
@@ -94,11 +83,11 @@ namespace Shop.BLL.Services
                 throw new ArgumentException();
             }
 
-            var productEntity = ConvertProductToProductEntity(item);
+            var productEntity = Mapper.ConvertProductToProductEntity(item);
 
             var resultProduct = _productRepository.Update(productEntity);
 
-            return ConvertProductEntityToProduct(resultProduct);
+            return Mapper.ConvertProductEntityToProduct(resultProduct);
         }
     }
 }
