@@ -68,6 +68,11 @@ namespace Shop.BLL.Services
 
         public Product Get(int id)
         {
+            if (!_validation.IsCorrectId(id))
+            {
+                throw new ArgumentException();
+            }
+
             var result = _productRepository.Get(id);
 
             return ConvertProductEntityToProduct(result);
