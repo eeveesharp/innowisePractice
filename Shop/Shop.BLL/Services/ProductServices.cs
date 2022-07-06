@@ -1,4 +1,4 @@
-﻿using Shop.BLL.Automapper;
+﻿using AutoMapper;
 using Shop.BLL.Infrastructure;
 using Shop.BLL.Interfaces;
 using Shop.BLL.Models;
@@ -12,13 +12,15 @@ namespace Shop.BLL.Services
     {
         private readonly IProductRepository<ProductEntity> _productRepository;
 
+        private readonly IMapper _mapper;
+
         private readonly Validation _validation;
 
-        public ProductServices(IProductRepository<ProductEntity> productRepository)
+        public ProductServices(IProductRepository<ProductEntity> productRepository,IMapper mapper)
         {
             _productRepository = productRepository;
-
             _validation = new Validation(_productRepository);
+            _mapper = mapper;
         }
 
         public Product Create(Product item)
@@ -30,11 +32,9 @@ namespace Shop.BLL.Services
                 throw new ArgumentException();
             }
 
-            var productEntity = Mapper.ConvertProductToProductEntity(item);
+            var resultProduct = _productRepository.Create(_mapper.Map<ProductEntity>(item));
 
-            var resultProduct = _productRepository.Create(productEntity);
-
-            return Mapper.ConvertProductEntityToProduct(resultProduct);
+            return _mapper.Map<Product>(resultProduct);
         }
 
         public void Delete(int id)
@@ -56,21 +56,12 @@ namespace Shop.BLL.Services
 
             var result = _productRepository.Get(id);
 
-            return Mapper.ConvertProductEntityToProduct(result);
+            return _mapper.Map<Product>(result);
         }
 
         public IEnumerable<Product> GetAll()
         {
-            var products = _productRepository.GetAll();
-
-            var result = new List<Product>();
-
-            foreach (var item in products)
-            {
-                result.Add(Mapper.ConvertProductEntityToProduct(item));
-            }
-
-            return result;
+            return _mapper.Map<IEnumerable<Product>>(_productRepository.GetAll());
         }
 
         public Product Update(Product item)
@@ -83,11 +74,9 @@ namespace Shop.BLL.Services
                 throw new ArgumentException();
             }
 
-            var productEntity = Mapper.ConvertProductToProductEntity(item);
+            var resultProduct = _productRepository.Update(_mapper.Map<ProductEntity>(item));
 
-            var resultProduct = _productRepository.Update(productEntity);
-
-            return Mapper.ConvertProductEntityToProduct(resultProduct);
+            return _mapper.Map<Product>(resultProduct);
         }
     }
 }

@@ -1,8 +1,12 @@
 using Shop.BLL.DI;
+using Shop.Mappers;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddBusinessLogic(builder.Configuration);
+
+builder.Services.AddAutoMapper(typeof(MappingProfile),typeof(Shop.BLL.Mappers.MappingProfile));
 
 // Add services to the container.
 
