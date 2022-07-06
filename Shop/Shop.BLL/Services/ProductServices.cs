@@ -46,7 +46,6 @@ namespace Shop.BLL.Services
 
             var result = await _productRepository.Get(id, ct);
 
-
             await _productRepository.Delete(result,ct);
         }
 
