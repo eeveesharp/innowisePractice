@@ -13,9 +13,7 @@ namespace Shop.BLL.Mappers
     {
         public MappingProfile()
         {
-            CreateMap<Product, ProductEntity>();
-
-            CreateMap<ProductEntity, Product>();
+            CreateMap<Product, ProductEntity>().ReverseMap();
         }
     }
 }

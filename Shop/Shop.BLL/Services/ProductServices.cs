@@ -19,9 +19,7 @@ namespace Shop.BLL.Services
         public ProductServices(IProductRepository<ProductEntity> productRepository,IMapper mapper)
         {
             _productRepository = productRepository;
-
             _validation = new Validation(_productRepository);
-
             _mapper = mapper;
         }
 

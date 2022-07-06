@@ -9,9 +9,7 @@ namespace Shop.Mappers
     {
         public MappingProfile()
         {
-            CreateMap<Product, ProductViewModel>();
-
-            CreateMap<ProductViewModel, Product>();
+            CreateMap<Product, ProductViewModel>().ReverseMap();
         }
     }
 }
