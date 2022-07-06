@@ -23,7 +23,7 @@ namespace Shop.BLL.Services
             _mapper = mapper;
         }
 
-        public Product Create(Product item)
+        public async Task<Product> Create(Product item, CancellationToken ct)
         {
             if (!_validation.IsCorrectName(item)
                 || !_validation.IsCorrectPrice(item)
@@ -32,49 +32,52 @@ namespace Shop.BLL.Services
                 throw new ArgumentException();
             }
 
-            var resultProduct = _productRepository.Create(_mapper.Map<ProductEntity>(item));
+            var resultProduct = await _productRepository.Create(_mapper.Map<ProductEntity>(item),ct);
 
             return _mapper.Map<Product>(resultProduct);
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id, CancellationToken ct)
         {
-            if (!_validation.IsCorrectId(id))
+            if (!await _validation.IsCorrectId(id,ct))
             {
                 throw new ArgumentException();
             }
 
-            _productRepository.Delete(id);
+            var result = await _productRepository.Get(id, ct);
+
+
+            await _productRepository.Delete(result,ct);
         }
 
-        public Product Get(int id)
+        public async Task<Product> Get(int id, CancellationToken ct)
         {
-            if (!_validation.IsCorrectId(id))
+            if (!await _validation.IsCorrectId(id,ct))
             {
                 throw new ArgumentException();
             }
 
-            var result = _productRepository.Get(id);
+            var result = await _productRepository.Get(id,ct);
 
             return _mapper.Map<Product>(result);
         }
 
-        public IEnumerable<Product> GetAll()
+        public async Task<IEnumerable<Product>> GetAll(CancellationToken ct)
         {
-            return _mapper.Map<IEnumerable<Product>>(_productRepository.GetAll());
+            return _mapper.Map<IEnumerable<Product>>(await _productRepository.GetAll(ct));
         }
 
-        public Product Update(Product item)
+        public async Task<Product> Update(Product item, CancellationToken ct)
         {
             if (!_validation.IsCorrectName(item)
                 || !_validation.IsCorrectPrice(item)
                 || !_validation.IsCorrectQuantity(item)
-                || !_validation.IsCorrectId(item.Id))
+                || !await _validation.IsCorrectId(item.Id,ct))
             {
                 throw new ArgumentException();
             }
 
-            var resultProduct = _productRepository.Update(_mapper.Map<ProductEntity>(item));
+            var resultProduct = await _productRepository.Update(_mapper.Map<ProductEntity>(item), ct);
 
             return _mapper.Map<Product>(resultProduct);
         }

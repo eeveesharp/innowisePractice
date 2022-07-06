@@ -2,14 +2,14 @@
 {
     public interface IProductRepository<ProductEntity>
     {
-        IEnumerable<ProductEntity> GetAll();
+        Task<IEnumerable<ProductEntity>> GetAll(CancellationToken ct);
 
-        ProductEntity Get(int id);
+        Task<ProductEntity> Get(int id, CancellationToken ct);
 
-        ProductEntity Create(ProductEntity item);
+        Task<ProductEntity> Create(ProductEntity item, CancellationToken ct);
 
-        ProductEntity Update(ProductEntity item);
+        Task<ProductEntity> Update(ProductEntity item, CancellationToken ct);
 
-        void Delete(int id);
+        Task Delete(ProductEntity item, CancellationToken ct);
     }
 }

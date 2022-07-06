@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Net.Http.Headers;
+using Microsoft.EntityFrameworkCore;
 using Shop.DAL.EF;
 using Shop.DAL.Entities;
 using Shop.DAL.Interfaces;
@@ -14,37 +15,37 @@ namespace Shop.DAL.Repositories
             _applicationContext = applicationContext;
         }
 
-        public ProductEntity Create(ProductEntity item)
+        public async Task<ProductEntity> Create(ProductEntity item, CancellationToken ct)
         {
-            _applicationContext.Products.Add(item);
+            await _applicationContext.Products.AddAsync(item,ct);
 
-            _applicationContext.SaveChanges();
+            await _applicationContext.SaveChangesAsync(ct);
 
             return item;
         }
 
-        public void Delete(int id)
+        public async Task Delete(ProductEntity product, CancellationToken ct)
         {
-            _applicationContext.Products.Remove(_applicationContext.Products.Find(id));
+            _applicationContext.Products.Remove(product);
 
-            _applicationContext.SaveChanges();
+            await _applicationContext.SaveChangesAsync(ct);
         }
 
-        public ProductEntity Get(int id)
+        public async Task<ProductEntity> Get(int id, CancellationToken ct)
         {
-            return _applicationContext.Products.Find(id);
+            return await _applicationContext.Products.AsNoTracking().FirstOrDefaultAsync(c =>c.Id == id, ct);
         }
 
-        public IEnumerable<ProductEntity> GetAll()
+        public async Task<IEnumerable<ProductEntity>> GetAll(CancellationToken ct)
         {
-            return _applicationContext.Products.AsNoTracking();
+            return await _applicationContext.Products.AsNoTracking().ToListAsync(ct);
         }
 
-        public ProductEntity Update(ProductEntity item)
+        public async Task<ProductEntity> Update(ProductEntity item, CancellationToken ct)
         {
             _applicationContext.Products.Update(item);
 
-            _applicationContext.SaveChanges();
+            await _applicationContext.SaveChangesAsync(ct);
 
             return item;
         }

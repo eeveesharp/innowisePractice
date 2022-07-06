@@ -31,9 +31,11 @@ namespace Shop.BLL.Infrastructure
             return product.Name is not null;
         }
 
-        public bool IsCorrectId(int id)
+        public async Task<bool> IsCorrectId(int id, CancellationToken ct)
         {
-            return _productRepository.GetAll().FirstOrDefault(p => p.Id == id) is not null;
+            var result = await _productRepository.Get(id, ct);
+
+            return result is not null;
         }
     }
 }
