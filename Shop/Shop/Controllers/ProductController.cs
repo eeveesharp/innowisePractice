@@ -1,7 +1,9 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Shop.Automapper;
 using Shop.BLL.Interfaces;
+using Shop.BLL.Models;
 using Shop.ViewModels.Product;
+
 
 namespace Shop.Controllers
 {
@@ -9,26 +11,21 @@ namespace Shop.Controllers
     [Route("[controller]")]
     public class ProductController : ControllerBase
     {
-        private readonly IProductServices<BLL.Models.Product> _productServices;
+        private readonly IProductServices<Product> _productServices;
 
-        public ProductController(IProductServices<BLL.Models.Product> productServices)
+        private readonly IMapper _mapper;
+
+        public ProductController(IProductServices<Product> productServices,IMapper mapper)
         {
             _productServices = productServices;
+
+            _mapper = mapper;
         }
 
         [HttpGet]
         public List<ProductViewModel> GetAll()
         {
-            var resultProduct = _productServices.GetAll();
-
-            var products = new List<ProductViewModel>();
-
-            foreach (var product in resultProduct)
-            {
-                products.Add(Mapper.ConvertProductToProductViewModel(product));
-            }
-
-            return products;
+            return _mapper.Map<List<ProductViewModel>>(_productServices.GetAll());
         }
 
         [HttpDelete("{id}")]
@@ -40,21 +37,21 @@ namespace Shop.Controllers
         [HttpPut]
         public ProductViewModel Update(ProductViewModel product)
         {
-            var productResult = Mapper.ConvertProductViewModelToProduct(product);
+            var productResult = _mapper.Map<Product>(product);
 
             _productServices.Update(productResult);
 
-            return Mapper.ConvertProductToProductViewModel(productResult);
+            return _mapper.Map<ProductViewModel>(productResult);
         }
 
         [HttpPost]
         public ProductViewModel Create(ProductViewModel product)
         {
-            var productResult = Mapper.ConvertProductViewModelToProduct(product);
+            var productResult = _mapper.Map<Product>(product);
 
             _productServices.Create(productResult);
 
-            return Mapper.ConvertProductToProductViewModel(productResult);
+            return _mapper.Map<ProductViewModel>(productResult);
         }
     }
 }
