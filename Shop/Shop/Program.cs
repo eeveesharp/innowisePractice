@@ -1,23 +1,19 @@
+using FluentValidation.AspNetCore;
 using Shop.BLL.DI;
 using Shop.Mappers;
-using AutoMapper;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddBusinessLogic(builder.Configuration);
-
-builder.Services.AddAutoMapper(typeof(MappingProfile),typeof(Shop.BLL.Mappers.MappingProfile));
-
-// Add services to the container.
-
+builder.Services.AddAutoMapper(typeof(MappingProfile), typeof(Shop.BLL.Mappers.MappingProfile));
+builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.Load("Shop")));
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
