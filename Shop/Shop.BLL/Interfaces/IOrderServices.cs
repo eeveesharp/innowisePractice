@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Shop.BLL.Interfaces
+﻿namespace Shop.BLL.Interfaces
 {
-    internal interface IOrderServices
+    public interface IOrderServices<Order>
     {
+        Task<IEnumerable<Order>> GetAll(CancellationToken ct);
+
+        Task<Order> Get(int id, CancellationToken ct);
+
+        Task<Order> Create(Order item, CancellationToken ct);
+
+        Task<Order> Update(Order item, CancellationToken ct);
+
+        Task Delete(int id, CancellationToken ct);
     }
 }

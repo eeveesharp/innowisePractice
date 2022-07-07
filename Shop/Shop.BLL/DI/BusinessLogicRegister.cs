@@ -13,6 +13,8 @@ namespace Shop.BLL.DI
         {
             serviceCollection.AddScoped<IProductServices<Product>, ProductServices>();
 
+            serviceCollection.AddScoped<IOrderServices<Order>, OrderServices>();
+
             serviceCollection.AddDataAccess(configuration);
         }
     }

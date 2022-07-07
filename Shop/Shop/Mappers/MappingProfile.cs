@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Shop.BLL.Models;
+using Shop.ViewModels.Order;
 using Shop.ViewModels.Product;
 
 namespace Shop.Mappers
@@ -10,6 +10,8 @@ namespace Shop.Mappers
         public MappingProfile()
         {
             CreateMap<Product, ProductViewModel>().ReverseMap();
+
+            CreateMap<Order, OrderViewModel>().ReverseMap();
         }
     }
 }
