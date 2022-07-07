@@ -4,7 +4,6 @@ using Shop.BLL.Interfaces;
 using Shop.BLL.Models;
 using Shop.ViewModels.Product;
 
-
 namespace Shop.Controllers
 {
     [ApiController]
