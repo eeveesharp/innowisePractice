@@ -6,7 +6,7 @@ using Shop.DAL.Interfaces;
 
 namespace Shop.DAL.Repositories
 {
-    public class ProductRepository : IProductRepository<ProductEntity>
+    public class ProductRepository : IProductRepository
     {
         private readonly ApplicationContext _applicationContext;
 

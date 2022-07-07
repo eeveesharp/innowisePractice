@@ -1,6 +1,8 @@
-﻿namespace Shop.BLL.Interfaces
+﻿using Shop.BLL.Models;
+
+namespace Shop.BLL.Interfaces
 {
-    public interface IProductServices<Product>
+    public interface IProductServices
     {
         Task<IEnumerable<Product>> GetAll(CancellationToken ct);
 

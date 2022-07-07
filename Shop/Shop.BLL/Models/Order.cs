@@ -1,6 +1,6 @@
-﻿namespace Shop.DAL.Entities
+﻿namespace Shop.BLL.Models
 {
-    public class OrderEntity
+    public class Order
     {
         public int Id { get; set; }
 

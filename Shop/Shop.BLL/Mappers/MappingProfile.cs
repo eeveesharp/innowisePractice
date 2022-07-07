@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Shop.BLL.Models;
 using Shop.DAL.Entities;
 
@@ -14,6 +9,8 @@ namespace Shop.BLL.Mappers
         public MappingProfile()
         {
             CreateMap<Product, ProductEntity>().ReverseMap();
+
+            CreateMap<Order, OrderEntity>().ReverseMap();
         }
     }
 }

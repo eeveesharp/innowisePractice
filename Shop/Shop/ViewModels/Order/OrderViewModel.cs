@@ -1,6 +1,6 @@
-﻿namespace Shop.DAL.Entities
+﻿namespace Shop.ViewModels.Order
 {
-    public class OrderEntity
+    public class OrderViewModel
     {
         public int Id { get; set; }
 

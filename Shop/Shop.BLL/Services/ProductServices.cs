@@ -8,15 +8,15 @@ using Shop.DAL.Interfaces;
 
 namespace Shop.BLL.Services
 {
-    public class ProductServices : IProductServices<Product>
+    public class ProductServices : IProductServices
     {
-        private readonly IProductRepository<ProductEntity> _productRepository;
+        private readonly IProductRepository _productRepository;
 
         private readonly IMapper _mapper;
 
         private readonly Validation _validation;
 
-        public ProductServices(IProductRepository<ProductEntity> productRepository,IMapper mapper)
+        public ProductServices(IProductRepository productRepository,IMapper mapper)
         {
             _productRepository = productRepository;
             _validation = new Validation(_productRepository);

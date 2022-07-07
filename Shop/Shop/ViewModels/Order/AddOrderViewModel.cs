@@ -1,9 +1,7 @@
-﻿namespace Shop.DAL.Entities
+﻿namespace Shop.ViewModels.Order
 {
-    public class OrderEntity
+    public class AddOrderViewModel
     {
-        public int Id { get; set; }
-
         public string ClientName { get; set; }
 
         public decimal FinalPrice { get; set; }
