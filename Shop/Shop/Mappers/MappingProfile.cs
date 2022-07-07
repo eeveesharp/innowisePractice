@@ -12,6 +12,14 @@ namespace Shop.Mappers
             CreateMap<Product, ProductViewModel>().ReverseMap();
 
             CreateMap<Order, OrderViewModel>().ReverseMap();
+
+            CreateMap<Order, ShortOrderViewModel>().ReverseMap();
+
+            CreateMap<Product, ShortProductViewModel>().ReverseMap();
+
+            CreateMap<Product, AddProductViewModel>().ReverseMap();
+
+            CreateMap<Order, AddOrderViewModel>().ReverseMap();
         }
     }
 }

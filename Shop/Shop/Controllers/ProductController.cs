@@ -33,23 +33,25 @@ namespace Shop.Controllers
         }
 
         [HttpPut]
-        public async Task<ProductViewModel> Update(ProductViewModel product, CancellationToken ct)
+        public async Task<ShortProductViewModel> Update([FromQuery]int id, AddProductViewModel product, CancellationToken ct)
         {
             var productResult = _mapper.Map<Product>(product);
 
+            productResult.Id = id;
+
             await _productServices.Update(productResult, ct);
 
-            return _mapper.Map<ProductViewModel>(productResult);
+            return _mapper.Map<ShortProductViewModel>(productResult);
         }
 
         [HttpPost]
-        public async Task<ProductViewModel> Create(ProductViewModel product, CancellationToken ct)
+        public async Task<ShortProductViewModel> Create(AddProductViewModel product, CancellationToken ct)
         {
             var productResult = _mapper.Map<Product>(product);
 
             await _productServices.Create(productResult, ct);
 
-            return _mapper.Map<ProductViewModel>(productResult);
+            return _mapper.Map<ShortProductViewModel>(productResult);
         }
     }
 }

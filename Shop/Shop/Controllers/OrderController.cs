@@ -33,23 +33,25 @@ namespace Shop.Controllers
         }
 
         [HttpPut]
-        public async Task<OrderViewModel> Update(OrderViewModel order, CancellationToken ct)
+        public async Task<ShortOrderViewModel> Update([FromQuery]int id, AddOrderViewModel order, CancellationToken ct)
         {
             var orderResult = _mapper.Map<Order>(order);
 
+            orderResult.Id = id;
+
             await _orderServices.Update(orderResult, ct);
 
-            return _mapper.Map<OrderViewModel>(orderResult);
+            return _mapper.Map<ShortOrderViewModel>(orderResult);
         }
 
         [HttpPost]
-        public async Task<OrderViewModel> Create(OrderViewModel order, CancellationToken ct)
+        public async Task<ShortOrderViewModel> Create(AddOrderViewModel order, CancellationToken ct)
         {
             var orderResult = _mapper.Map<Order>(order);
 
             await _orderServices.Create(orderResult, ct);
 
-            return _mapper.Map<OrderViewModel>(orderResult);
+            return _mapper.Map<ShortOrderViewModel>(orderResult);
         }
     }
 }
