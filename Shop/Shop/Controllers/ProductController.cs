@@ -15,7 +15,7 @@ namespace Shop.Controllers
 
         private readonly IMapper _mapper;
 
-        public ProductController(IProductServices<Product> productServices,IMapper mapper)
+        public ProductController(IProductServices<Product> productServices, IMapper mapper)
         {
             _productServices = productServices;
 
@@ -23,33 +23,33 @@ namespace Shop.Controllers
         }
 
         [HttpGet]
-        public List<ProductViewModel> GetAll()
+        public async Task<IEnumerable<ProductViewModel>> GetAll(CancellationToken ct)
         {
-            return _mapper.Map<List<ProductViewModel>>(_productServices.GetAll());
+            return _mapper.Map<List<ProductViewModel>>(await _productServices.GetAll(ct));
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task Delete(int id, CancellationToken ct)
         {
-            _productServices.Delete(id);
+            await _productServices.Delete(id, ct);
         }
 
         [HttpPut]
-        public ProductViewModel Update(ProductViewModel product)
+        public async Task<ProductViewModel> Update(ProductViewModel product, CancellationToken ct)
         {
             var productResult = _mapper.Map<Product>(product);
 
-            _productServices.Update(productResult);
+            await _productServices.Update(productResult, ct);
 
             return _mapper.Map<ProductViewModel>(productResult);
         }
 
         [HttpPost]
-        public ProductViewModel Create(ProductViewModel product)
+        public async Task<ProductViewModel> Create(ProductViewModel product, CancellationToken ct)
         {
             var productResult = _mapper.Map<Product>(product);
 
-            _productServices.Create(productResult);
+            await _productServices.Create(productResult,ct);
 
             return _mapper.Map<ProductViewModel>(productResult);
         }

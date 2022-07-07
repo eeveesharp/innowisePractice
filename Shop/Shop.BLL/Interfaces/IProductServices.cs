@@ -2,14 +2,14 @@
 {
     public interface IProductServices<Product>
     {
-        IEnumerable<Product> GetAll();
+        Task<IEnumerable<Product>> GetAll(CancellationToken ct);
 
-        Product Get(int id);
+        Task<Product> Get(int id, CancellationToken ct);
 
-        Product Create(Product item);
+        Task<Product> Create(Product item, CancellationToken ct);
 
-        Product Update(Product item);
+        Task<Product> Update(Product item, CancellationToken ct);
 
-        void Delete(int id);
+        Task Delete(int id, CancellationToken ct);
     }
 }
