@@ -6,13 +6,13 @@ using Shop.DAL.Interfaces;
 
 namespace Shop.BLL.Services
 {
-    public class OrderServices : IOrderServices<Order>
+    public class OrderServices : IOrderServices
     {
-        private readonly IOrderRepository<OrderEntity> _orderRepository;
+        private readonly IOrderRepository _orderRepository;
 
         private readonly IMapper _mapper;
 
-        public OrderServices(IOrderRepository<OrderEntity> productRepository, IMapper mapper)
+        public OrderServices(IOrderRepository productRepository, IMapper mapper)
         {
             _orderRepository = productRepository;
             _mapper = mapper;

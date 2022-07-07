@@ -7,9 +7,9 @@ namespace Shop.BLL.Infrastructure
 {
     public class Validation
     {
-        private readonly IProductRepository<ProductEntity> _productRepository;
+        private readonly IProductRepository _productRepository;
 
-        public Validation(IProductRepository<ProductEntity> productRepository)
+        public Validation(IProductRepository productRepository)
         {
             _productRepository = productRepository;
         }

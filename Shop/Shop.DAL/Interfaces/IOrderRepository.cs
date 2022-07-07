@@ -1,6 +1,8 @@
-﻿namespace Shop.DAL.Interfaces
+﻿using Shop.DAL.Entities;
+
+namespace Shop.DAL.Interfaces
 {
-    public interface IOrderRepository<OrderEntity>
+    public interface IOrderRepository
     {
         Task<IEnumerable<OrderEntity>> GetAll(CancellationToken ct);
 

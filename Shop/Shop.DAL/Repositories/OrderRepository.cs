@@ -5,7 +5,7 @@ using Shop.DAL.Interfaces;
 
 namespace Shop.DAL.Repositories
 {
-    public class OrderRepository : IOrderRepository<OrderEntity>
+    public class OrderRepository : IOrderRepository
     {
         private readonly ApplicationContext _applicationContext;
 

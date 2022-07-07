@@ -12,9 +12,9 @@ namespace Shop.DAL.DI
     {
         public static void AddDataAccess(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
-            serviceCollection.AddScoped<IProductRepository<ProductEntity>, ProductRepository>();
+            serviceCollection.AddScoped<IProductRepository, ProductRepository>();
 
-            serviceCollection.AddScoped<IOrderRepository<OrderEntity>, OrderRepository>();
+            serviceCollection.AddScoped<IOrderRepository, OrderRepository>();
 
             serviceCollection.AddDbContext<ApplicationContext>(context =>
             {
