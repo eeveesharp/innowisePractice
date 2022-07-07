@@ -18,7 +18,6 @@ namespace Shop.Controllers
         public ProductController(IProductServices<Product> productServices, IMapper mapper)
         {
             _productServices = productServices;
-
             _mapper = mapper;
         }
 
@@ -49,7 +48,7 @@ namespace Shop.Controllers
         {
             var productResult = _mapper.Map<Product>(product);
 
-            await _productServices.Create(productResult,ct);
+            await _productServices.Create(productResult, ct);
 
             return _mapper.Map<ProductViewModel>(productResult);
         }
