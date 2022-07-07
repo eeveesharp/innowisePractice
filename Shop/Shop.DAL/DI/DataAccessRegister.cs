@@ -14,6 +14,8 @@ namespace Shop.DAL.DI
         {
             serviceCollection.AddScoped<IProductRepository<ProductEntity>, ProductRepository>();
 
+            serviceCollection.AddScoped<IOrderRepository<OrderEntity>, OrderRepository>();
+
             serviceCollection.AddDbContext<ApplicationContext>(context =>
             {
                 context.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
