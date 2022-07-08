@@ -7,9 +7,12 @@ namespace Shop.Middleware
     {
         private readonly RequestDelegate _requestDelegate;
 
-        public ExceptionHandlerMiddleware(RequestDelegate requestDelegate)
+        private readonly ILogger<ExceptionHandlerMiddleware> _logger;
+
+        public ExceptionHandlerMiddleware(RequestDelegate requestDelegate,ILogger<ExceptionHandlerMiddleware> logger)
         {
             _requestDelegate = requestDelegate;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
@@ -18,27 +21,25 @@ namespace Shop.Middleware
             {
                 await _requestDelegate.Invoke(context);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                await HandleExceptionMessageAsync(context, e).ConfigureAwait(false);
+                context.Response.ContentType = "application/json";
+
+                var statusCode = HttpStatusCode.InternalServerError;
+
+                _logger.LogError(exception.Message);
+                _logger.LogError(exception.StackTrace);
+
+                var result = JsonConvert.SerializeObject(new
+                {
+                    StatusCode = statusCode,
+                    ErrorMessage = exception.Message
+                });
+
+                context.Response.StatusCode = (int)statusCode;
+
+                context.Response.WriteAsync(result);
             }
-        }
-
-        private static Task HandleExceptionMessageAsync(HttpContext context, Exception exception)
-        {
-            context.Response.ContentType = "application/json";
-
-            var statusCode = HttpStatusCode.InternalServerError;
-
-            var result = JsonConvert.SerializeObject(new
-            {
-                StatusCode = statusCode,
-                ErrorMessage = exception.Message
-            });
-
-            context.Response.StatusCode = (int)statusCode;
-
-            return context.Response.WriteAsync(result);
         }
     }
 }
