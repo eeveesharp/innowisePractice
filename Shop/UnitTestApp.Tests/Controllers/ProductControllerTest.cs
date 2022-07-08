@@ -1,12 +1,8 @@
 ﻿using AutoMapper;
-using FluentValidation;
 using Moq;
 using Shop.BLL.Interfaces;
 using Shop.BLL.Models;
 using Shop.Controllers;
-using Shop.DAL.Entities;
-using Shop.DAL.Interfaces;
-using Shop.Validator;
 using Shop.ViewModels.Product;
 using Shouldly;
 using UnitTestApp.Tests.Models;
@@ -20,8 +16,6 @@ namespace UnitTestApp.Tests.Controllers
         private readonly Mock<IProductServices> _productServicesMock = new();
 
         private readonly Mock<IMapper> _mapper = new();
-
-        private readonly Mock<IValidator<ProductValidator>> _validator = new();
 
         [Fact]
         public async Task GetAll_WhenControllerHasData_ReturnsValidProductsList()

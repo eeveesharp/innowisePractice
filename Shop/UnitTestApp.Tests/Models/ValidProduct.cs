@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Shop.BLL.Models;
-using Shop.DAL.Entities;
-using Shop.ViewModels.Product;
+﻿using Shop.BLL.Models;
 
 namespace UnitTestApp.Tests.Models
 {
