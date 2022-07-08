@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Shop.BLL.Infrastructure;
 using Shop.BLL.Interfaces;
 using Shop.BLL.Models;
 using Shop.DAL.Entities;
@@ -14,24 +13,14 @@ namespace Shop.BLL.Services
 
         private readonly IMapper _mapper;
 
-        private readonly Validation _validation;
-
         public ProductServices(IProductRepository productRepository,IMapper mapper)
         {
             _productRepository = productRepository;
-            _validation = new Validation(_productRepository);
             _mapper = mapper;
         }
 
         public async Task<Product> Create(Product item, CancellationToken ct)
         {
-            if (!_validation.IsCorrectName(item)
-                || !_validation.IsCorrectPrice(item)
-                || !_validation.IsCorrectQuantity(item))
-            {
-                throw new ArgumentException();
-            }
-
             var resultProduct = await _productRepository.Create(_mapper.Map<ProductEntity>(item),ct);
 
             return _mapper.Map<Product>(resultProduct);
@@ -39,11 +28,6 @@ namespace Shop.BLL.Services
 
         public async Task Delete(int id, CancellationToken ct)
         {
-            if (!await _validation.IsCorrectId(id,ct))
-            {
-                throw new ArgumentException();
-            }
-
             var result = await _productRepository.Get(id, ct);
 
             await _productRepository.Delete(result,ct);
@@ -51,11 +35,6 @@ namespace Shop.BLL.Services
 
         public async Task<Product> Get(int id, CancellationToken ct)
         {
-            if (!await _validation.IsCorrectId(id,ct))
-            {
-                throw new ArgumentException();
-            }
-
             var result = await _productRepository.Get(id,ct);
 
             return _mapper.Map<Product>(result);
@@ -68,14 +47,6 @@ namespace Shop.BLL.Services
 
         public async Task<Product> Update(Product item, CancellationToken ct)
         {
-            if (!_validation.IsCorrectName(item)
-                || !_validation.IsCorrectPrice(item)
-                || !_validation.IsCorrectQuantity(item)
-                || !await _validation.IsCorrectId(item.Id,ct))
-            {
-                throw new ArgumentException();
-            }
-
             var resultProduct = await _productRepository.Update(_mapper.Map<ProductEntity>(item), ct);
 
             return _mapper.Map<Product>(resultProduct);
