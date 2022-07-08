@@ -2,6 +2,7 @@ using FluentValidation.AspNetCore;
 using Shop.BLL.DI;
 using Shop.Mappers;
 using System.Reflection;
+using Shop.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.UseAuthorization();
 
