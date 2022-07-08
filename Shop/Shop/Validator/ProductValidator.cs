@@ -3,7 +3,7 @@ using Shop.ViewModels.Product;
 
 namespace Shop.Validator
 {
-    public class ProductValidator : AbstractValidator<ProductViewModel>
+    public class ProductValidator : AbstractValidator<AddProductViewModel>
     {
         public ProductValidator()
         {
