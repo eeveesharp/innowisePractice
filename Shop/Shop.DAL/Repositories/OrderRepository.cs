@@ -7,9 +7,9 @@ namespace Shop.DAL.Repositories
 {
     public class OrderRepository : GenericRepository<OrderEntity>, IOrderRepository
     {
-        public OrderRepository(ApplicationContext applicationContext):base(applicationContext)
+        public OrderRepository(ApplicationContext applicationContext) : base(applicationContext)
         {
-            
+
         }
     }
 }

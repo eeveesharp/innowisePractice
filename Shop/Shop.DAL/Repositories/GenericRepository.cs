@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Shop.DAL.EF;
 using Shop.DAL.Interfaces;
 
@@ -39,7 +34,7 @@ namespace Shop.DAL.Repositories
 
         public async Task<TEntity> Get(int id, CancellationToken ct)
         {
-            return await _dbSet.FindAsync( new object[] {id}, ct);
+            return await _dbSet.FindAsync(new object[] { id }, ct);
         }
 
         public async Task<IEnumerable<TEntity>> GetAll(CancellationToken ct)
