@@ -12,6 +12,8 @@ namespace Shop.DAL.DI
     {
         public static void AddDataAccess(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
+            serviceCollection.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
             serviceCollection.AddScoped<IProductRepository, ProductRepository>();
 
             serviceCollection.AddScoped<IOrderRepository, OrderRepository>();
