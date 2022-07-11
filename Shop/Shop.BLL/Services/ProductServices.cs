@@ -21,7 +21,7 @@ namespace Shop.BLL.Services
 
         public async Task<Product> Create(Product item, CancellationToken ct)
         {
-            var resultProduct = await _productRepository.Create(_mapper.Map<ProductEntity>(item),ct);
+            var resultProduct = await _productRepository.Create(_mapper.Map<ProductEntity>(item), ct);
 
             return _mapper.Map<Product>(resultProduct);
         }
