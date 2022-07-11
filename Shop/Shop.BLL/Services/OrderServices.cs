@@ -6,49 +6,10 @@ using Shop.DAL.Interfaces;
 
 namespace Shop.BLL.Services
 {
-    public class OrderServices : IOrderServices
+    public class OrderServices : GenericServices<Order, OrderEntity>, IOrderServices
     {
-        private readonly IOrderRepository _orderRepository;
-
-        private readonly IMapper _mapper;
-
-        public OrderServices(IOrderRepository productRepository, IMapper mapper)
+        public OrderServices(IGenericRepository<OrderEntity> repository, IMapper mapper) : base(repository, mapper)
         {
-            _orderRepository = productRepository;
-            _mapper = mapper;
-        }
-
-        public async Task<Order> Create(Order item, CancellationToken ct)
-        {
-            var resultOrder = await _orderRepository.Create(_mapper.Map<OrderEntity>(item), ct);
-
-            return _mapper.Map<Order>(resultOrder);
-        }
-
-        public async Task Delete(int id, CancellationToken ct)
-        {
-            var result = await _orderRepository.Get(id, ct);
-
-            await _orderRepository.Delete(result, ct);
-        }
-
-        public async Task<Order> Get(int id, CancellationToken ct)
-        {
-            var result = await _orderRepository.Get(id, ct);
-
-            return _mapper.Map<Order>(result);
-        }
-
-        public async Task<IEnumerable<Order>> GetAll(CancellationToken ct)
-        {
-            return _mapper.Map<IEnumerable<Order>>(await _orderRepository.GetAll(ct));
-        }
-
-        public async Task<Order> Update(Order item, CancellationToken ct)
-        {
-            var resultOrder = await _orderRepository.Update(_mapper.Map<OrderEntity>(item), ct);
-
-            return _mapper.Map<Order>(resultOrder);
         }
     }
 }
