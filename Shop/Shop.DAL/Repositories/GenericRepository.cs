@@ -46,8 +46,7 @@ namespace Shop.DAL.Repositories
 
         public async Task<TEntity> Update(TEntity item, CancellationToken ct)
         {
-            DbSet.Update(item);
-
+            ApplicationContext.Entry(item).State = EntityState.Modified;
             await ApplicationContext.SaveChangesAsync(ct);
 
             return item;

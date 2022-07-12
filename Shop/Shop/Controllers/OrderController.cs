@@ -32,8 +32,8 @@ namespace Shop.Controllers
             await _orderServices.Delete(id, ct);
         }
 
-        [HttpPut]
-        public async Task<ShortOrderViewModel> Update([FromQuery]int id, AddOrderViewModel order, CancellationToken ct)
+        [HttpPut("{id}")]
+        public async Task<ShortOrderViewModel> Update(int id, AddOrderViewModel order, CancellationToken ct)
         {
             var orderResult = _mapper.Map<Order>(order);
 
