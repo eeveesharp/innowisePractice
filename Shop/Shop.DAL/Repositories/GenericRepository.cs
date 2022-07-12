@@ -6,47 +6,49 @@ namespace Shop.DAL.Repositories
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        protected readonly ApplicationContext _applicationContext;
+        protected readonly ApplicationContext ApplicationContext;
 
-        protected readonly DbSet<TEntity> _dbSet;
+        protected readonly DbSet<TEntity> DbSet;
 
         public GenericRepository(ApplicationContext applicationContext)
         {
-            _applicationContext = applicationContext;
-            _dbSet = applicationContext.Set<TEntity>();
+            ApplicationContext = applicationContext;
+            DbSet = applicationContext.Set<TEntity>();
         }
 
         public async Task<TEntity> Create(TEntity item, CancellationToken ct)
         {
-            await _dbSet.AddAsync(item, ct);
+            await DbSet.AddAsync(item, ct);
 
-            await _applicationContext.SaveChangesAsync(ct);
+            await ApplicationContext.SaveChangesAsync(ct);
 
             return item;
         }
 
         public async Task Delete(TEntity item, CancellationToken ct)
         {
-            _dbSet.Remove(item);
+            DbSet.Remove(item);
 
-            await _applicationContext.SaveChangesAsync(ct);
+            await ApplicationContext.SaveChangesAsync(ct);
         }
 
-        public async Task<TEntity> Get(int id, CancellationToken ct)
+        public async Task<TEntity?> Get(int id, CancellationToken ct)
         {
-            return await _dbSet.FindAsync(new object[] { id }, ct);
+            var result = await DbSet.FindAsync(new object[] { id }, ct);
+
+            return result;
         }
 
         public async Task<IEnumerable<TEntity>> GetAll(CancellationToken ct)
         {
-            return await _dbSet.AsNoTracking().ToListAsync(ct);
+            return await DbSet.AsNoTracking().ToListAsync(ct);
         }
 
         public async Task<TEntity> Update(TEntity item, CancellationToken ct)
         {
-            _dbSet.Update(item);
+            DbSet.Update(item);
 
-            await _applicationContext.SaveChangesAsync(ct);
+            await ApplicationContext.SaveChangesAsync(ct);
 
             return item;
         }

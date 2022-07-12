@@ -38,7 +38,7 @@ namespace Shop.Middleware
 
                 context.Response.StatusCode = (int)statusCode;
 
-                context.Response.WriteAsync(result);
+                await context.Response.WriteAsync(result);
             }
         }
     }

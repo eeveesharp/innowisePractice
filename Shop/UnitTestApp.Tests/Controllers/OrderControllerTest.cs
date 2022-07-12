@@ -78,9 +78,8 @@ namespace UnitTestApp.Tests.Controllers
             _orderServices.Setup(c => c.Delete(deleteProduct, default));
             //Act
             var controller = new OrderController(_orderServices.Object, _mapper.Object);
-            Action act = () => controller.Delete(deleteProduct, default);
             //Assert
-            act.ShouldNotThrow();
+            controller.Delete(deleteProduct, default).ShouldNotThrow();
         }
     }
 }

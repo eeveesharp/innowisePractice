@@ -79,9 +79,8 @@ namespace UnitTestApp.Tests.Controllers
             _productServicesMock.Setup(c => c.Delete(deleteProduct, default));
             //Act
             var controller = new ProductController(_productServicesMock.Object, _mapper.Object);
-            Action act = () => controller.Delete(deleteProduct, default);
             //Assert
-            act.ShouldNotThrow();
+            controller.Delete(deleteProduct, default).ShouldNotThrow();
         }
     }
 }

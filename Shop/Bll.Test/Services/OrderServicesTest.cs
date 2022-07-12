@@ -23,9 +23,9 @@ namespace Bll.Test.Services
             _mapperMock.Setup(map => map.Map<IEnumerable<Order>>(ValidOrderEntity.ListOrderEntity)).Returns(ValidOrder.ListOrder);
             _orderRepositoryMock.Setup(s => s.GetAll(default)).ReturnsAsync(ValidOrderEntity.ListOrderEntity);
 
-            var OrderServices = new OrderServices(_orderRepositoryMock.Object, _mapperMock.Object);
+            var orderServices = new OrderServices(_orderRepositoryMock.Object, _mapperMock.Object);
 
-            var result = await OrderServices.GetAll(default);
+            var result = await orderServices.GetAll(default);
 
             ValidOrder.ListOrder.ShouldBeEquivalentTo(result);
         }
@@ -51,24 +51,22 @@ namespace Bll.Test.Services
             _mapperMock.Setup(map => map.Map<OrderEntity>(ValidOrder.ValidOrderModel)).Returns(ValidOrderEntity.OrderEntity);
             _orderRepositoryMock.Setup(s => s.Update(ValidOrderEntity.OrderEntity, default)).ReturnsAsync(ValidOrderEntity.OrderEntity);
 
-            var OrderServices = new OrderServices(_orderRepositoryMock.Object, _mapperMock.Object);
+            var orderServices = new OrderServices(_orderRepositoryMock.Object, _mapperMock.Object);
 
-            var result = await OrderServices.Update(ValidOrder.ValidOrderModel, default);
+            var result = await orderServices.Update(ValidOrder.ValidOrderModel, default);
 
             ValidOrder.ValidOrderModel.ShouldBeEquivalentTo(result);
         }
 
         [Fact]
-        public async Task Delete_WhenValidData_ReturnValidOrderEntity()
+        public void Delete_WhenValidData_ReturnValidOrderEntity()
         {
             _mapperMock.Setup(map => map.Map<Order>(ValidOrderEntity.OrderEntity)).Returns(ValidOrder.ValidOrderModel);
             _orderRepositoryMock.Setup(s => s.Delete(ValidOrderEntity.OrderEntity, default));
 
-            var OrderServices = new OrderServices(_orderRepositoryMock.Object, _mapperMock.Object);
+            var orderServices = new OrderServices(_orderRepositoryMock.Object, _mapperMock.Object);
 
-            Action action = async () => await OrderServices.Delete(ValidOrder.ValidOrderModel.Id, default);
-
-            action.ShouldNotThrow();
+            orderServices.Delete(ValidOrder.ValidOrderModel.Id, default).ShouldNotThrow();
         }
     }
 }

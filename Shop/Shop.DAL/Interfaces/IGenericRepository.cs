@@ -4,7 +4,7 @@
     {
         Task<IEnumerable<TEntity>> GetAll(CancellationToken ct);
 
-        Task<TEntity> Get(int id, CancellationToken ct);
+        Task<TEntity?> Get(int id, CancellationToken ct);
 
         Task<TEntity> Create(TEntity item, CancellationToken ct);
 
