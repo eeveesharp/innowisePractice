@@ -15,11 +15,5 @@
         public decimal TotalPrice { get; set; }
 
         public int Quantity { get; set; }
-
-     //   public DateTime OrderDateTime { get; set; }
-
-        //public string? ClientName { get; set; }
-
-        //public  decimal FinalPrice { get; set; }
     }
 }

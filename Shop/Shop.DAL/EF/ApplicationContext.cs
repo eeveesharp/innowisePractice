@@ -17,21 +17,5 @@ namespace Shop.DAL.EF
         {
             Database.Migrate();
         }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        { 
-           /* modelBuilder.Entity<OrderEntity>()
-                .HasKey(c => new { c.ClientId, c.ProductId });
-
-            modelBuilder.Entity<OrderEntity>()
-                .HasOne(c => c.Client)
-                .WithMany(c => c.Id)
-                .HasForeignKey(c => c.ClientId);
-
-            modelBuilder.Entity<OrderEntity>()
-                .HasOne(c => c.Product)
-                .WithMany(c => c.Orders)
-                .HasForeignKey(c => c.ProductId);*/
-        }
     }
 }

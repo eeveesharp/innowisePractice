@@ -13,7 +13,5 @@ namespace Shop.DAL.Entities
         public string? Name { get; set; }
 
         public string? LastName { get; set; }
-
-       // public IEnumerable<OrderEntity> Orders { get; set; }
     }
 }
