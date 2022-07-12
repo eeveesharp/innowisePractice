@@ -2,8 +2,14 @@
 {
     public class ShortOrderViewModel
     {
-        public string? ClientName { get; set; }
+        public int ClientName { get; set; }
 
-        public decimal FinalPrice { get; set; }
+        public int ClientLastName { get; set; }
+
+        public int ProductName { get; set; }
+
+        public int Quantity { get; set; }
+
+        public int TotalPrice { get; set; }
     }
 }

@@ -2,8 +2,10 @@
 {
     public class AddOrderViewModel
     {
-        public string? ClientName { get; set; }
+        public int ClientId { get; set; }
 
-        public decimal FinalPrice { get; set; }
+        public int ProductId { get; set; }
+
+        public int Quantity { get; set; }
     }
 }
