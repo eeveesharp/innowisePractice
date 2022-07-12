@@ -13,6 +13,8 @@ namespace Shop.DAL.DI
         {
             serviceCollection.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+            serviceCollection.AddScoped<IClientRepository, ClientRepository>();
+
             serviceCollection.AddScoped<IProductRepository, ProductRepository>();
 
             serviceCollection.AddScoped<IOrderRepository, OrderRepository>();
