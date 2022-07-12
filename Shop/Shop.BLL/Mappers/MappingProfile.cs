@@ -11,6 +11,8 @@ namespace Shop.BLL.Mappers
             CreateMap<Product, ProductEntity>().ReverseMap();
 
             CreateMap<Order, OrderEntity>().ReverseMap();
+
+            CreateMap<Client, ClientEntity>().ReverseMap();
         }
     }
 }

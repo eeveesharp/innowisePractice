@@ -14,6 +14,8 @@ namespace Shop.BLL.DI
 
             serviceCollection.AddScoped<IOrderServices, OrderServices>();
 
+            serviceCollection.AddScoped<IClientServices, ClientServices>();
+
             serviceCollection.AddDataAccess(configuration);
         }
     }
