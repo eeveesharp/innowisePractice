@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Shop.DAL.EF;
+﻿using Shop.DAL.EF;
 using Shop.DAL.Entities;
 using Shop.DAL.Interfaces;
 

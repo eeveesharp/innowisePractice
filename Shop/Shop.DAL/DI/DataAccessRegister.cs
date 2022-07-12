@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.DAL.EF;
-using Shop.DAL.Entities;
 using Shop.DAL.Interfaces;
 using Shop.DAL.Repositories;
 

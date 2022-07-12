@@ -59,7 +59,7 @@ namespace Bll.Test.Services
         }
 
         [Fact]
-        public async Task Delete_WhenValidData_ReturnValidProductEntity()
+        public void Delete_WhenValidData_ReturnValidProductEntity()
         {
             _mapperMock.Setup(map => map.Map<Product>(ValidProductEntity.ProductEntity)).Returns(ValidProduct.ValidProductModel);
 
@@ -67,9 +67,7 @@ namespace Bll.Test.Services
 
             var productServices = new ProductServices(_productRepositoryMock.Object, _mapperMock.Object);
 
-            Action action = async () => await productServices.Delete(ValidProduct.ValidProductModel.Id, default);
-
-            action.ShouldNotThrow();
+            productServices.Delete(ValidProduct.ValidProductModel.Id, default).ShouldNotThrow();
         }
     }
 }
