@@ -7,7 +7,7 @@ using Shop.DAL.Interfaces;
 
 namespace Shop.BLL.Services
 {
-    public class ProductServices : GenericServices<Product, ProductEntity>, IProductServices
+    public class ProductServices : GenericServices<Product, ProductEntity>, IGenericServices<Product>
     {
         public ProductServices(IGenericRepository<ProductEntity> repository, IMapper mapper) : base(repository, mapper)
         {

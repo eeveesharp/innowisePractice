@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Shop.DAL.EF;
+using Shop.DAL.Entities;
 using Shop.DAL.Interfaces;
 using Shop.DAL.Repositories;
 
@@ -13,9 +14,9 @@ namespace Shop.DAL.DI
         {
             serviceCollection.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-            serviceCollection.AddScoped<IClientRepository, ClientRepository>();
+            serviceCollection.AddScoped<IGenericRepository<ClientEntity>, ClientRepository>();
 
-            serviceCollection.AddScoped<IProductRepository, ProductRepository>();
+            serviceCollection.AddScoped<IGenericRepository<ProductEntity>, ProductRepository>();
 
             serviceCollection.AddScoped<IOrderRepository, OrderRepository>();
 

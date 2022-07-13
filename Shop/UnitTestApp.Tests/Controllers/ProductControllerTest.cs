@@ -13,7 +13,7 @@ namespace UnitTestApp.Tests.Controllers
 {
     public class ProductControllerTest
     {
-        private readonly Mock<IProductServices> _productServicesMock = new();
+        private readonly Mock<IGenericServices<Product>> _productServicesMock = new();
 
         private readonly Mock<IMapper> _mapper = new();
 
