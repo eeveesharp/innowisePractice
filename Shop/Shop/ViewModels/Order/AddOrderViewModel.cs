@@ -10,6 +10,8 @@ namespace Shop.ViewModels.Order
 
         public int Quantity { get; set; }
 
+#nullable disable
         public ClientViewModel ClientViewModel { get; set; }
+#nullable enable
     }
 }

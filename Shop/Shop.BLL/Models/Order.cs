@@ -12,6 +12,6 @@
 
         public int Quantity { get; set; }
 
-        public Client Client { get; set; }
+        public Client? Client { get; set; }
     }
 }
