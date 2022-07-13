@@ -47,8 +47,7 @@ namespace UnitTestApp.Tests.Controllers
             var controller = new OrderController(_orderServices.Object, _mapper.Object);
             var result = await controller.Create(addOrderViewModel, default);
             //Assert
-            expectedAddOrderViewModel.ClientName.ShouldBeEquivalentTo(result.ClientName);
-            expectedAddOrderViewModel.FinalPrice.ShouldBeEquivalentTo(result.FinalPrice);
+            expectedAddOrderViewModel.ShouldBeEquivalentTo(result);
         }
 
         [Fact]
@@ -65,8 +64,7 @@ namespace UnitTestApp.Tests.Controllers
             var controller = new OrderController(_orderServices.Object, _mapper.Object);
             var result = await controller.Update(default, addOrderViewModel, default);
             //Assert
-            expectedAddOrderViewModel.ClientName.ShouldBeEquivalentTo(result.ClientName);
-            expectedAddOrderViewModel.FinalPrice.ShouldBeEquivalentTo(result.FinalPrice);
+            expectedAddOrderViewModel.ShouldBeEquivalentTo(result);
         }
 
         [Fact]

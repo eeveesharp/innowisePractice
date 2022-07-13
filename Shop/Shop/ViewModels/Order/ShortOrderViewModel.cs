@@ -1,15 +1,19 @@
-﻿namespace Shop.ViewModels.Order
+﻿using Shop.ViewModels.Client;
+
+namespace Shop.ViewModels.Order
 {
     public class ShortOrderViewModel
     {
-        public int ClientName { get; set; }
+        public string ClientName { get; set; }
 
-        public int ClientLastName { get; set; }
+        public string ClientLastName { get; set; }
 
-        public int ProductName { get; set; }
+        public string ProductName { get; set; }
 
         public int Quantity { get; set; }
 
-        public int TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
+
+        public ClientViewModel ClientViewModel { get; set; }
     }
 }

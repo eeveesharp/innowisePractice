@@ -1,4 +1,6 @@
-﻿namespace Shop.ViewModels.Order
+﻿using Shop.ViewModels.Client;
+
+namespace Shop.ViewModels.Order
 {
     public class AddOrderViewModel
     {
@@ -7,5 +9,7 @@
         public int ProductId { get; set; }
 
         public int Quantity { get; set; }
+
+        public ClientViewModel ClientViewModel { get; set; }
     }
 }

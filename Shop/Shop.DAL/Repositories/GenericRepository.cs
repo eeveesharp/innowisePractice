@@ -32,7 +32,7 @@ namespace Shop.DAL.Repositories
             await ApplicationContext.SaveChangesAsync(ct);
         }
 
-        public async Task<TEntity?> Get(int id, CancellationToken ct)
+        public virtual async Task<TEntity?> Get(int id, CancellationToken ct)
         {
             var result = await DbSet.FindAsync(new object[] { id }, ct);
 

@@ -4,9 +4,9 @@
     {
         public int Id { get; set; }
 
-        public int ClientName { get; set; }
+        public string ClientName { get; set; }
 
-        public int ClientLastName { get; set; }
+        public string ClientLastName { get; set; }
 
         public decimal TotalPrice { get; set; }
 

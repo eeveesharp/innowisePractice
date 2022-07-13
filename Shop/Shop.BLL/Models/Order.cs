@@ -11,5 +11,7 @@
         public decimal TotalPrice { get; set; }
 
         public int Quantity { get; set; }
+
+        public Client Client { get; set; }
     }
 }
