@@ -6,8 +6,8 @@ namespace UnitTestApp.Tests.ViewModels
     {
         public static IEnumerable<OrderViewModel> ListOrder = new List<OrderViewModel>
             { new() { Id = 1, Quantity = 5, TotalPrice = 100, 
-                ShortClientViewModel = new() { LastName = "test", Name = "test" },
-                ShortProductViewModel = new(){Quantity = 3, Name = "test",Price = 100}}
+                Client = new() { LastName = "test", Name = "test" },
+                Product = new(){Quantity = 3, Name = "test",Price = 100}}
             };
         
         public static AddOrderViewModel AddOrderViewModel = new()
