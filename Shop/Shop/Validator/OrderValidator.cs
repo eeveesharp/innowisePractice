@@ -7,8 +7,8 @@ namespace Shop.Validator
     {
         public OrderValidator()
         {
-            RuleFor(c => c.ClientName).Length(1, 50);
-            RuleFor(c => c.FinalPrice).GreaterThan(1);
+            RuleFor(c => c.ClientViewModel.Name).Length(1, 50);
+            RuleFor(c => c.Quantity).GreaterThan(0);
         }
     }
 }

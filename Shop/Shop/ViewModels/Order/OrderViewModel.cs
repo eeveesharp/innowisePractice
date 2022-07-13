@@ -6,6 +6,10 @@
 
         public string? ClientName { get; set; }
 
-        public decimal FinalPrice { get; set; }
+        public string? ClientLastName { get; set; }
+
+        public decimal TotalPrice { get; set; }
+
+        public int Quantity { get; set; }
     }
 }

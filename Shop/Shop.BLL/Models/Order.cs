@@ -4,8 +4,14 @@
     {
         public int Id { get; set; }
 
-        public string? ClientName { get; set; }
+        public int ClientId { get; set; }
 
-        public decimal FinalPrice { get; set; }
+        public int ProductId { get; set; }
+
+        public decimal TotalPrice { get; set; }
+
+        public int Quantity { get; set; }
+
+        public Client? Client { get; set; }
     }
 }

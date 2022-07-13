@@ -1,9 +1,17 @@
-﻿namespace Shop.ViewModels.Order
+﻿using Shop.ViewModels.Client;
+
+namespace Shop.ViewModels.Order
 {
     public class AddOrderViewModel
     {
-        public string? ClientName { get; set; }
+        public int ClientId { get; set; }
 
-        public decimal FinalPrice { get; set; }
+        public int ProductId { get; set; }
+
+        public int Quantity { get; set; }
+
+#nullable disable
+        public ClientViewModel ClientViewModel { get; set; }
+#nullable enable
     }
 }
