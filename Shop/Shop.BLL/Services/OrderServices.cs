@@ -27,5 +27,14 @@ namespace Shop.BLL.Services
 
             return resultOrder;
         }
+
+        public override async Task<IEnumerable<Order>> GetAll(CancellationToken ct)
+        {
+            var resultOrderEntityList = await _repository.GetAll(ct);
+
+            var resultOrderList = _mapper.Map<IEnumerable<Order>>(resultOrderEntityList);
+
+            return resultOrderList;
+        }
     }
 }
