@@ -39,7 +39,7 @@ namespace Shop.DAL.Repositories
             return result;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAll(CancellationToken ct)
+        public virtual async Task<IEnumerable<TEntity>> GetAll(CancellationToken ct)
         {
             return await DbSet.AsNoTracking().ToListAsync(ct);
         }

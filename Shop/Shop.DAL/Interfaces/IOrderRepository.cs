@@ -4,8 +4,8 @@ namespace Shop.DAL.Interfaces
 {
     public interface IOrderRepository : IGenericRepository<OrderEntity>
     {
-        Task<OrderEntity> Get(int id, CancellationToken ct);
+        new Task<OrderEntity?> Get(int id, CancellationToken ct);
 
-        Task<IEnumerable<OrderEntity>> GetAll(CancellationToken ct);
+        new Task<IEnumerable<OrderEntity>> GetAll(CancellationToken ct);
     }
 }
