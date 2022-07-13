@@ -59,8 +59,6 @@ namespace Shop.Controllers
         {
             var order = await _orderServices.Get(id, ct);
 
-            var test = _mapper.Map<ShortOrderViewModel>(order);
-
             return _mapper.Map<ShortOrderViewModel>(order);
         }
     }

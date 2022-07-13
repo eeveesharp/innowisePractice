@@ -4,6 +4,5 @@ namespace Shop.DAL.Interfaces
 {
     public interface IProductRepository : IGenericRepository<ProductEntity>
     {
-
     }
 }

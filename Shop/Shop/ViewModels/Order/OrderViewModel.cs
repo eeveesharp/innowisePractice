@@ -11,8 +11,8 @@ namespace Shop.ViewModels.Order
 
         public int Quantity { get; set; }
 
-        public ShortClientViewModel ShortClientViewModel { get; set; }
+        public ShortClientViewModel Client { get; set; }
 
-        public ShortProductViewModel ShortProductViewModel { get; set; }
+        public ShortProductViewModel Product { get; set; }
     }
 }
