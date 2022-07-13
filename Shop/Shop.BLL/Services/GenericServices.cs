@@ -33,7 +33,7 @@ namespace Shop.BLL.Services
             }
         }
 
-        public async Task<TModel> Get(int id, CancellationToken ct)
+        public virtual async Task<TModel> Get(int id, CancellationToken ct)
         {
             var result = await Repository.Get(id, ct);
 

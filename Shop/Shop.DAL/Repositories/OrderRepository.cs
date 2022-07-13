@@ -11,5 +11,12 @@ namespace Shop.DAL.Repositories
         {
 
         }
+
+        public override async Task<OrderEntity> Get(int id, CancellationToken ct)
+        {
+            var result = await DbSet.AsNoTracking().Include(c => c.Client).Include(c => c.Product).FirstOrDefaultAsync(c => c.Id == id, ct);
+
+            return result;
+        }
     }
 }

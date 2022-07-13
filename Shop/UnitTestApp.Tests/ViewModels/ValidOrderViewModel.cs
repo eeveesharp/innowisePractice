@@ -5,8 +5,11 @@ namespace UnitTestApp.Tests.ViewModels
     public class ValidOrderViewModel
     {
         public static IEnumerable<OrderViewModel> ListOrder = new List<OrderViewModel>
-            { new() { Id = 1, ClientLastName = "test", ClientName = "test", Quantity = 5, TotalPrice = 100 }};
-
+            { new() { Id = 1, Quantity = 5, TotalPrice = 100, 
+                ShortClientViewModel = new() { LastName = "test", Name = "test" },
+                ShortProductViewModel = new(){Quantity = 3, Name = "test",Price = 100}}
+            };
+        
         public static AddOrderViewModel AddOrderViewModel = new()
         {
             ClientId = 1,
@@ -18,11 +21,8 @@ namespace UnitTestApp.Tests.ViewModels
         public static ShortOrderViewModel ShortOrderViewModel = new()
         {
             TotalPrice = 100,
-            ClientLastName = "test",
             Quantity = 3,
-            ClientName = "test",
-            ProductName = "tv",
-            ClientViewModel = new() { Id = 1, LastName = "test", Name = "test" }
+            Client = new (){ LastName = "Test", Name = "Test" }
         };
     }
 }

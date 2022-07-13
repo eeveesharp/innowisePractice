@@ -4,6 +4,5 @@ namespace Shop.BLL.Interfaces
 {
     public interface IProductServices : IGenericServices<Product>
     {
-
     }
 }
