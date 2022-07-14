@@ -16,7 +16,7 @@ namespace Shop.BLL.Services
             Mapper = mapper;
         }
 
-        public async Task<TModel> Create(TModel item, CancellationToken ct)
+        public virtual async Task<TModel> Create(TModel item, CancellationToken ct)
         {
             var resultOrder = await Repository.Create(Mapper.Map<TEntity>(item), ct);
 

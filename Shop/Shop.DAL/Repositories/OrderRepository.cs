@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Security.Cryptography.X509Certificates;
+using Microsoft.EntityFrameworkCore;
 using Shop.DAL.EF;
 using Shop.DAL.Entities;
 using Shop.DAL.Interfaces;
@@ -23,6 +24,15 @@ namespace Shop.DAL.Repositories
             var result = await DbSet.AsNoTracking().Include(c => c.Client).Include(c => c.Product).ToListAsync(ct);
 
             return result;
+        }
+
+        public override async Task<OrderEntity> Create(OrderEntity item, CancellationToken ct)
+        {
+            await DbSet.AddAsync(item, ct);
+
+            await ApplicationContext.SaveChangesAsync(ct);
+
+            return item;
         }
     }
 }

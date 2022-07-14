@@ -16,7 +16,7 @@ namespace Shop.DAL.Repositories
             DbSet = applicationContext.Set<TEntity>();
         }
 
-        public async Task<TEntity> Create(TEntity item, CancellationToken ct)
+        public virtual async Task<TEntity> Create(TEntity item, CancellationToken ct)
         {
             await DbSet.AddAsync(item, ct);
 

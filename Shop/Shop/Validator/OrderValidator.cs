@@ -7,7 +7,7 @@ namespace Shop.Validator
     {
         public OrderValidator()
         {
-            RuleFor(c => c.ClientViewModel.Name).Length(1, 50);
+            //RuleFor(c => c.ClientViewModel.Name).Length(1, 50);
             RuleFor(c => c.Quantity).GreaterThan(0);
         }
     }
