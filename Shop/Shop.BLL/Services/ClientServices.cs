@@ -11,7 +11,7 @@ using Shop.DAL.Interfaces;
 
 namespace Shop.BLL.Services
 {
-    public class ClientServices : GenericServices<Client, ClientEntity>, IClientServices
+    public class ClientServices : GenericServices<Client, ClientEntity>, IGenericServices<Client>
     {
         public ClientServices(IGenericRepository<ClientEntity> repository, IMapper mapper) : base(repository, mapper)
         {

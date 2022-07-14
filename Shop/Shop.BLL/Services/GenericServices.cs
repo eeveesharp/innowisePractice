@@ -40,7 +40,7 @@ namespace Shop.BLL.Services
             return Mapper.Map<TModel>(result);
         }
 
-        public async Task<IEnumerable<TModel>> GetAll(CancellationToken ct)
+        public virtual async Task<IEnumerable<TModel>> GetAll(CancellationToken ct)
         {
             return Mapper.Map<IEnumerable<TModel>>(await Repository.GetAll(ct));
         }

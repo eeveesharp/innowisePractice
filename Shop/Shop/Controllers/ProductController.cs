@@ -10,11 +10,11 @@ namespace Shop.Controllers
     [Route("[controller]")]
     public class ProductController : ControllerBase
     {
-        private readonly IProductServices _productServices;
+        private readonly IGenericServices<Product> _productServices;
 
         private readonly IMapper _mapper;
 
-        public ProductController(IProductServices productServices, IMapper mapper)
+        public ProductController(IGenericServices<Product> productServices, IMapper mapper)
         {
             _productServices = productServices;
             _mapper = mapper;

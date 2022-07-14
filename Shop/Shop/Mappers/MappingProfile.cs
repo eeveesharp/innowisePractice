@@ -26,7 +26,7 @@ namespace Shop.Mappers
 
             CreateMap<Client, AddClientViewModel>().ReverseMap();
 
-            CreateMap<Client, ShortClientViewModel>().ReverseMap(); ;
+            CreateMap<Client, ShortClientViewModel>().ReverseMap();
         }
     }
 }

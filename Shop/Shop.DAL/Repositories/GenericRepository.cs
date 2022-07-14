@@ -39,7 +39,7 @@ namespace Shop.DAL.Repositories
             return result;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAll(CancellationToken ct)
+        public virtual async Task<IEnumerable<TEntity>> GetAll(CancellationToken ct)
         {
             return await DbSet.AsNoTracking().ToListAsync(ct);
         }
@@ -47,6 +47,7 @@ namespace Shop.DAL.Repositories
         public async Task<TEntity> Update(TEntity item, CancellationToken ct)
         {
             ApplicationContext.Entry(item).State = EntityState.Modified;
+
             await ApplicationContext.SaveChangesAsync(ct);
 
             return item;

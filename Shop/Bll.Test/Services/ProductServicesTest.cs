@@ -13,7 +13,7 @@ namespace Bll.Test.Services
 {
     public class ProductServicesTest
     {
-        private readonly Mock<IProductRepository> _productRepositoryMock = new();
+        private readonly Mock<IGenericRepository<ProductEntity>> _productRepositoryMock = new();
 
         private readonly Mock<IMapper> _mapperMock = new();
 

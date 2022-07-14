@@ -10,9 +10,12 @@ namespace Shop.ViewModels.Order
         public decimal TotalPrice { get; set; }
 
         public int Quantity { get; set; }
+#nullable disable
+        public ShortClientViewModel Client { get; set; }
+#nullable enable
 
-        public ShortClientViewModel ShortClientViewModel { get; set; }
-
-        public ShortProductViewModel ShortProductViewModel { get; set; }
+#nullable disable
+        public ShortProductViewModel Product { get; set; }
+#nullable enable
     }
 }

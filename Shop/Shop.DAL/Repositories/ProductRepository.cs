@@ -4,7 +4,7 @@ using Shop.DAL.Interfaces;
 
 namespace Shop.DAL.Repositories
 {
-    public class ProductRepository : GenericRepository<ProductEntity>, IProductRepository
+    public class ProductRepository : GenericRepository<ProductEntity>, IGenericRepository<ProductEntity>
     {
         public ProductRepository(ApplicationContext applicationContext) : base(applicationContext)
         {
