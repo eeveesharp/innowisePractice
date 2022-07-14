@@ -38,6 +38,7 @@ namespace Bll.Test.Services
             _mapperMock.Setup(map => map.Map<Order>(ValidOrderEntity.OrderEntity)).Returns(ValidOrder.ValidOrderModel);
             _mapperMock.Setup(map => map.Map<OrderEntity>(ValidOrder.ValidOrderModel)).Returns(ValidOrderEntity.OrderEntity);
             _orderRepositoryMock.Setup(s => s.Create(ValidOrderEntity.OrderEntity, default)).ReturnsAsync(ValidOrderEntity.OrderEntity);
+            _orderRepositoryMock.Setup(s => s.Get(ValidOrderEntity.OrderEntity.Id, default)).ReturnsAsync(ValidOrderEntity.OrderEntity);
 
             var OrderServices = new OrderServices(_orderRepositoryMock.Object, _productRepositoryMock.Object, _mapperMock.Object);
 
