@@ -1,4 +1,5 @@
 ﻿using Shop.ViewModels.Client;
+using Shop.ViewModels.Product;
 
 namespace Shop.ViewModels.Order
 {
@@ -9,9 +10,5 @@ namespace Shop.ViewModels.Order
         public int ProductId { get; set; }
 
         public int Quantity { get; set; }
-
-#nullable disable
-        public ClientViewModel ClientViewModel { get; set; }
-#nullable enable
     }
 }

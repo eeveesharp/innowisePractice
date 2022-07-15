@@ -49,9 +49,9 @@ namespace Shop.Controllers
         {
             var orderResult = _mapper.Map<Order>(order);
 
-            await _orderServices.Create(orderResult, ct);
+            var result = await _orderServices.Create(orderResult, ct);
 
-            return _mapper.Map<ShortOrderViewModel>(orderResult);
+            return _mapper.Map<ShortOrderViewModel>(result);
         }
 
         [HttpGet("{id}")]
