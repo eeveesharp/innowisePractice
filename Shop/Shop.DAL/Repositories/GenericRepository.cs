@@ -6,49 +6,49 @@ namespace Shop.DAL.Repositories
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        protected readonly ApplicationContext ApplicationContext;
+        protected readonly ApplicationContext applicationContext;
 
-        protected readonly DbSet<TEntity> DbSet;
+        protected readonly DbSet<TEntity> dbSet;
 
         public GenericRepository(ApplicationContext applicationContext)
         {
-            ApplicationContext = applicationContext;
-            DbSet = applicationContext.Set<TEntity>();
+            this.applicationContext = applicationContext;
+            dbSet = applicationContext.Set<TEntity>();
         }
 
         public virtual async Task<TEntity> Create(TEntity item, CancellationToken ct)
         {
-            await DbSet.AddAsync(item, ct);
+            await dbSet.AddAsync(item, ct);
 
-            await ApplicationContext.SaveChangesAsync(ct);
+            await applicationContext.SaveChangesAsync(ct);
 
             return item;
         }
 
         public async Task Delete(TEntity item, CancellationToken ct)
         {
-            DbSet.Remove(item);
+            dbSet.Remove(item);
 
-            await ApplicationContext.SaveChangesAsync(ct);
+            await applicationContext.SaveChangesAsync(ct);
         }
 
         public virtual async Task<TEntity?> Get(int id, CancellationToken ct)
         {
-            var result = await DbSet.FindAsync(new object[] { id }, ct);
+            var result = await dbSet.FindAsync(new object[] { id }, ct);
 
             return result;
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetAll(CancellationToken ct)
         {
-            return await DbSet.AsNoTracking().ToListAsync(ct);
+            return await dbSet.AsNoTracking().ToListAsync(ct);
         }
 
         public async Task<TEntity> Update(TEntity item, CancellationToken ct)
         {
-            ApplicationContext.Entry(item).State = EntityState.Modified;
+            applicationContext.Entry(item).State = EntityState.Modified;
 
-            await ApplicationContext.SaveChangesAsync(ct);
+            await applicationContext.SaveChangesAsync(ct);
 
             return item;
         }
